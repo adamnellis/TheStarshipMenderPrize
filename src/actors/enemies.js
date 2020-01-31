@@ -11,7 +11,10 @@ export default class Enemies extends GameObjects.Container {
 	}
 
 	spawn() {
-		super.add(new Enemy(this.scene, 400, 400))
-		super.add(new Enemy(this.scene, 600, 400))
+		super.add(new Enemy(this.scene, 400, 200))
+		super.add(new Enemy(this.scene, 600, 200))
+		super.add(new Enemy(this.scene, 800, 200))
+		super.add(new Enemy(this.scene, 1000, 200))
+		super.add(new Enemy(this.scene, 1200, 200))
 	}
 }
