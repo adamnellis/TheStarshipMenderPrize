@@ -8,6 +8,7 @@ export default class Preload extends Scene {
     }
 
     preload() {
+        this.load.image('body', require('../assets/body.png'));
         this.load.image('enemy', require('../assets/enemy.png'));
 
         // Example Spritesheet

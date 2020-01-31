@@ -4,6 +4,7 @@ import {
 import {
     TextButton
 } from '../ui/button'
+import Player from '../actors/player'
 import Enemies from '../actors/enemies'
 
 export default class Game extends Scene {
@@ -26,6 +27,9 @@ export default class Game extends Scene {
             },
             () => this.scene.start('title')
         );
+
+        this.player = new Player(this)
+        this.player.init()
 
         this.enemies = new Enemies(this)
         this.enemies.spawn()
