@@ -4,6 +4,7 @@ import {
 import {
     TextButton
 } from '../ui/button'
+import Enemies from '../actors/enemies'
 
 export default class Game extends Scene {
     constructor() {
@@ -13,7 +14,7 @@ export default class Game extends Scene {
     preload() {}
 
     create(data) {
-        // data is passed from 
+        // data is passed from button
 
         this.back_button = new TextButton(
             this,
@@ -26,6 +27,7 @@ export default class Game extends Scene {
             () => this.scene.start('title')
         );
 
-        // TODO: create game object here.
+        this.enemies = new Enemies(this)
+        this.enemies.spawn()
     }
 }
