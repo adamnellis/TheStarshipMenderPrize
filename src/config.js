@@ -1,6 +1,7 @@
 import Boot from './scenes/boot'
 import Preload from './scenes/preload'
 import Title from './scenes/title'
+import GameOver from './scenes/gameover'
 import Game from './scenes/game'
 import {
     Scale
@@ -10,7 +11,7 @@ export default {
     width: 1500,
     height: 900,
     backgroundColor: 'rgba(0, 0, 0)',
-    scene: [Boot, Preload, Title, Game],
+    scene: [Boot, Preload, Title, Game, GameOver],
     scale: {
         mode: Scale.FIT,
         autoCenter: Scale.CENTER_BOTH
