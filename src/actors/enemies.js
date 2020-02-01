@@ -1,8 +1,10 @@
 import {
 	GameObjects
 } from 'phaser'
+import config from './../config'
 import EnemyRotatePlayer from './enemy_rotate_player'
 import EnemySpiral from "./enemy_spiral"
+import EnemyMovePointToPoint from "./enemy_move_point_to_point";
 
 export default class Enemies extends GameObjects.Container {
 	constructor(scene, player, bullets) {
@@ -15,8 +17,10 @@ export default class Enemies extends GameObjects.Container {
 	}
 
 	spawn() {
-		this.enemies.push(new EnemyNormalRotatePlayer(this.scene, this.player, this.bullets, 750, 500, 'enemyBlack1.png'))
-		this.enemies.push(new EnemySlowSpiral(this.scene, this.player, this.bullets, 600));
+		// this.enemies.push(new EnemyNormalRotatePlayer(this.scene, this.player, this.bullets, 750, 500, 'enemyBlack1.png'))
+		// this.enemies.push(new EnemySlowSpiral(this.scene, this.player, this.bullets, 600));
+
+		this.enemies.push(new EnemyFlyInToCentre(this.scene, this.player, this.bullets));
 
 		for(const enemy of this.enemies) {
 			super.add(enemy);
@@ -56,4 +60,19 @@ class EnemyNormalRotatePlayer extends EnemyRotatePlayer{
 	}
 
 
+}
+
+class EnemyFlyInToCentre extends EnemyMovePointToPoint {
+
+	constructor(scene, player, bullets) {
+
+		// TODO: Randomly choose start x & y
+		const angle = Math.random() * 2 * Math.PI;
+		const radius = 1.5 * Math.max(config.width, config.height) / 2;
+		const start_x = radius * Math.cos(angle) + config.width / 2;
+		const start_y = radius * Math.sin(angle) + config.height / 2;
+
+		super(scene, player, bullets, start_x, start_y, config.width / 2, config.height / 2, 'enemyBlack1.png', -Math.PI / 2)
+
+	}
 }
