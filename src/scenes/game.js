@@ -37,6 +37,11 @@ export default class Game extends Scene {
 
     preload() {}
 
+    endGame(){
+        this.scene.start('gameover', {
+            score: this.score.getFinalScore()
+        })
+    }
 
     create(data) {
         // data is passed from button
@@ -67,9 +72,11 @@ export default class Game extends Scene {
 
         const collideShips = (ship, enemy) => {
             ship.damage(SHIP_HIT_DAMAGE);
+            enemy.explode();
         }
 
         this.physics.add.collider(this.player, this.enemies.enemies, collideShips);
+       
 
         // TODO: working on speech and upgrade pop-up
         // this.speech = new Speech(this, this.player)
@@ -90,12 +97,6 @@ export default class Game extends Scene {
     }
 
     update(t, dt) {
-        if (this.player.health.isDead()){
-            this.scene.start('gameover', {
-                score: this.score.getFinalScore()
-            })
-        }
-
         this.dt_accumulator += dt;
 		if (this.dt_accumulator > physics_dt) {
 			this.enemies.update_delayed(t, this.dt_accumulator);

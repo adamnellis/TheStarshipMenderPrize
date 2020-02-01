@@ -78,6 +78,7 @@ import Resources from '../ui/resources.js'
 
     damage(damage) {
       this.health.reduce(damage);
+     
     }
   
   repair(options){
