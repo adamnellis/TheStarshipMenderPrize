@@ -5,9 +5,14 @@ import {
     TextButton
 } from '../ui/button'
 import Player from '../actors/player'
-import Bullet from '../actors/bullet'
+import Bullets from "../actors/bullets"
 import Enemies from '../actors/enemies'
 import Speech from '../ui/speech'
+import Score from '../ui/score'
+
+const PHYSICS_FPS = 15;
+const physics_dt = 1000 / PHYSICS_FPS;
+const SHIP_HIT_DAMAGE = 50;
 
 export default class Game extends Scene {
     constructor() {
@@ -28,11 +33,15 @@ export default class Game extends Scene {
         }
 
         super(config);
-
-
     }
 
     preload() {}
+
+    endGame(){
+        this.scene.start('gameover', {
+            score: this.score.getFinalScore()
+        })
+    }
 
     create(data) {
         // data is passed from button
@@ -41,27 +50,33 @@ export default class Game extends Scene {
 
         this.back_button = new TextButton(
             this,
-            100,
-            200,
-            'Back', {
+            50,
+            50,
+            'Exit', {
                 font: "bold 32px Arial",
-                fill: '#0f0'
+                fill: '#fff'
             },
             () => this.scene.start('title')
-        );
+        ).setAlpha(0.3);
 
+        this.score = new Score(this)
 
+        this.dt_accumulator = 0;
+
+        this.bullets = new Bullets(this)
 
         this.player = new Player(this)
-        this.player.init()
 
-        this.enemies = new Enemies(this, this.player)
+        this.enemies = new Enemies(this, this.player, this.bullets)
         this.enemies.spawn()
 
-        this.bullet = new Bullet(this, 1000, 500)
+        const collideShips = (ship, enemy) => {
+            ship.damage(SHIP_HIT_DAMAGE);
+            enemy.explode();
+        }
 
-
-        this.physics.add.collider(this.player.ship, this.enemies.enemies);
+        this.physics.add.collider(this.player, this.enemies.enemies, collideShips);
+       
 
         // TODO: working on speech and upgrade pop-up
         // this.speech = new Speech(this, this.player)
@@ -76,17 +91,25 @@ export default class Game extends Scene {
         //     )
         // });
 
+
+      
+
     }
 
     update(t, dt) {
-        this.enemies.update(t, dt)
+        this.dt_accumulator += dt;
+		if (this.dt_accumulator > physics_dt) {
+			this.enemies.update_delayed(t, this.dt_accumulator);
+            this.player.update_delayed(t, this.dt_accumulator);
+            this.bullets.update_delayed(t, this.dt_accumulator);
+            this.dt_accumulator = 0;
+            
+            // FIXME: remove this when score captured elsewhere
+            this.score.increase(1)
+		}
+
+		this.enemies.update(t, dt);
         this.player.update(t, dt);
-
-        // console.log(this.player.ship);
-        // console.log(this.enemies.enemies[0])
-
-        // console.log(this.physics)
-
-        
+        this.bullets.update(t, dt);
     }
 }

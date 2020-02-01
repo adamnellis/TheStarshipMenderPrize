@@ -4,39 +4,27 @@ import {
 import EnemyRotatePlayer from './enemy_rotate_player'
 import EnemySpiral from "./enemy_spiral"
 
-const PHYSICS_FPS = 15;
-const physics_dt = 1000 / PHYSICS_FPS;
-
 export default class Enemies extends GameObjects.Container {
-	constructor(scene, player) {
+	constructor(scene, player, bullets) {
 		super(scene);
 		this.player = player;
+		this.bullets = bullets;
+		this.enemies = [];
 
 		this.scene.add.existing(this);
-
-		this.dt_accumulator = 0;
-		this.enemies = [];
 	}
 
 	spawn() {
+		this.enemies.push(new EnemyNormalRotatePlayer(this.scene, this.player, this.bullets, 750, 500, 'enemyBlack1.png'))
+		this.enemies.push(new EnemySlowSpiral(this.scene, this.player, this.bullets, 600));
 
-		this.enemies.push(new EnemyNormalRotatePlayer(this.scene, this.player, 750, 500, 'enemyBlack1.png'));
-		this.enemies.push(new EnemySlowSpiral(this.scene, this.player, 600));
-
-
-		for(const enemy of this.enemies){
-			super.add(enemy)
+		for(const enemy of this.enemies) {
+			super.add(enemy);
 		}
-
+		
 	}
 
 	update(t, dt) {
-		this.dt_accumulator += dt;
-		if (this.dt_accumulator > physics_dt) {
-			this.update_delayed(t, this.dt_accumulator);
-			this.dt_accumulator = 0;
-		}
-
 		for (const enemy of this.list) {
 			enemy.update(t, dt);
 		}
@@ -51,9 +39,9 @@ export default class Enemies extends GameObjects.Container {
 
 class EnemySlowSpiral extends EnemySpiral {
 
-	constructor(scene, player, y_line) {
+	constructor(scene, player, bullets, y_line) {
 
-		super(scene, player, y_line, 'enemyRed3.png', 1 / 3000, 150, 150)
+		super(scene, player, bullets, y_line, 'enemyRed3.png', 1 / 3000, 150, 150)
 
 	}
 
@@ -61,9 +49,9 @@ class EnemySlowSpiral extends EnemySpiral {
 
 class EnemyNormalRotatePlayer extends EnemyRotatePlayer{
 
-	constructor(scene, player, x, y) {
+	constructor(scene, player, bullets, x, y) {
 
-		super(scene, player, x, y, 'enemyBlack2.png', -Math.PI / 2)
+		super(scene, player, bullets, x, y, 'enemyBlack2.png', -Math.PI / 2)
 
 	}
 
