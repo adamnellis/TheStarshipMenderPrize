@@ -18,6 +18,11 @@ export default class Enemy extends CircularCollider {
 		this.angular_rotation = 0;
 		this.physics_angle = rotation_angle;
 
+		this.force_x = 0;
+		this.force_y = 0;
+		this.velocity_x = 0;
+		this.velocity_y = 0;
+
 		this.health = 100
 		this.dying = false
 
@@ -30,7 +35,11 @@ export default class Enemy extends CircularCollider {
 	update(t, dt) {
 		// Integrate motion
 		this.physics_angle += this.angular_rotation * dt;
+		this.x += this.velocity_x * dt;
+		this.y += this.velocity_y * dt;
 		this.angular_rotation += this.rotation_force * dt;
+		this.velocity_x += this.force_x * dt;
+		this.velocity_y += this.force_y * dt;
 		// Set rotation on shape
 		this.rotation = this.physics_angle + this.rotation_angle;
 	}
@@ -56,7 +65,6 @@ export default class Enemy extends CircularCollider {
 
 
 		// Create a bullet moving in the direction that the enemy is pointing
-		// TODO: Take into account this.rotation_angle
 		const bullet = new Bullet(this.scene, this.x, this.y, -Math.sin(this.rotation), Math.cos(this.rotation));
 		this.bullets.add(bullet);
 
