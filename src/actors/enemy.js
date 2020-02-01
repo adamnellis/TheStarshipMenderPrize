@@ -52,7 +52,9 @@ export default class Enemy extends CircularCollider {
 			return
 		}
 
-		this.shoot();
+		if(this.dying == false){
+			this.shoot();
+		}
 	}
 
 	shoot() {
@@ -76,8 +78,8 @@ export default class Enemy extends CircularCollider {
 		this.health = this.health - damage_dealt
 
 		if(this.health <= 0 && this.dying==false){
-			this.dying = true
 
+			this.dying = true
 			//Turn physics off
 			this.body.enable = false
 
@@ -88,6 +90,7 @@ export default class Enemy extends CircularCollider {
 	}
 
 	death_animation(){
+
 		this.tint = 0xff0000
 
 		if(this.animation_count == this.animation_cycles){
