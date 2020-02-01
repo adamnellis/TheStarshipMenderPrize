@@ -1,6 +1,6 @@
 export default class TopScore extends Phaser.GameObjects.Text {	
 	constructor(scene, score) {
-        super(scene, 900, 580,
+        super(scene, 750, 390,
             "Best: 0" + score, {
                 font: "bold 48px Arial",
                 fill: '#fff',
