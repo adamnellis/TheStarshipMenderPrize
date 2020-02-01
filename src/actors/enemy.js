@@ -31,6 +31,7 @@ export default class Enemy extends CircularCollider {
 		// Destroy enemies when they move off the screen
 		if (this.x < -config.width || this.x > 2 * config.width || this.y < -config.height || this.y > 2 * config.height) {
 			this.destroy();
+			return
 		}
 
 		this.shoot();
