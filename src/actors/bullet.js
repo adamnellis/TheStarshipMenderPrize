@@ -2,8 +2,12 @@ import {
 	GameObjects
 } from 'phaser'
 import config from "../config";
+import Collider from './collider'
 
-export default class Bullet extends GameObjects.Sprite {
+//Could use in constructor for different ammunition
+const BULLET_DAMAGE = 10;
+
+export default class Bullet extends Collider {
 	constructor(scene, x_pos, y_pos, x_vel, y_vel, image_name = "laserBlue01.png") {
 		super(scene, x_pos, y_pos, "spaceRedux", image_name);
 		this.scene.add.existing(this);
@@ -11,6 +15,7 @@ export default class Bullet extends GameObjects.Sprite {
 		this.x_vel = x_vel;
 		this.y_vel = y_vel;
 		this.rotation = Math.atan2(this.y_vel, this.x_vel) + Math.PI / 2;
+		this.damage = BULLET_DAMAGE;
 	}
 
 	add(bullet) {

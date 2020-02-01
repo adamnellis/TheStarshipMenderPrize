@@ -47,7 +47,24 @@ export default class Enemy extends CircularCollider {
 	}
 
 	shoot() {
+
+
+		const shipShot = (ship, bullet) => {
+			ship.damage(bullet.damage);
+			bullet.destroy();
+		}
+
+
 		// Create a bullet moving in the direction that the enemy is pointing
-		this.bullets.add(new Bullet(this.scene, this.x, this.y, -Math.sin(this.rotation), Math.cos(this.rotation)))
+		const bullet = new Bullet(this.scene, this.x, this.y, -Math.sin(this.rotation), Math.cos(this.rotation));
+		this.bullets.add(bullet);
+
+		this.scene.physics.add.collider(this.player, bullet, shipShot);
+	}
+
+	//TODO use the damage / die thing
+	explode() {
+		this.destroy();
+		return
 	}
 }

@@ -1,8 +1,12 @@
 import CircularCollider from './circularCollider'
+import Health from '../ui/health.js'
+import Resources from '../ui/resources.js'
 
  export default class player extends CircularCollider {
  	constructor(scene) {
     super(scene, 500, 200, "spaceRedux", "playerShip1_green.png")
+    this.health = new Health(scene)
+    this.resources = new Resources(scene)
     this.scene.add.existing(this);
 		this.cursors = scene.input.keyboard.createCursorKeys();
     
@@ -10,7 +14,6 @@ import CircularCollider from './circularCollider'
     this.velocity = 300;
     this.acceleration = 50;
     this.drag = 50; 
-    this.health = 100;
 
     this.setCollideWorldBounds(true);
     this.setDrag(this.drag, this.drag)
@@ -74,7 +77,8 @@ import CircularCollider from './circularCollider'
     }
 
     damage(damage) {
-      this.health -= damage;
+      this.health.reduce(damage);
+     
     }
   
   repair(options){

@@ -8,6 +8,7 @@ import Player from '../actors/player'
 import Bullets from "../actors/bullets"
 import Enemies from '../actors/enemies'
 import Speech from '../ui/speech'
+import Score from '../ui/score'
 
 const PHYSICS_FPS = 15;
 const physics_dt = 1000 / PHYSICS_FPS;
@@ -36,6 +37,11 @@ export default class Game extends Scene {
 
     preload() {}
 
+    endGame(){
+        this.scene.start('gameover', {
+            score: this.score.getFinalScore()
+        })
+    }
 
     create(data) {
         // data is passed from button
@@ -44,14 +50,16 @@ export default class Game extends Scene {
 
         this.back_button = new TextButton(
             this,
-            100,
-            200,
-            'Back', {
+            50,
+            50,
+            'Exit', {
                 font: "bold 32px Arial",
-                fill: '#0f0'
+                fill: '#fff'
             },
             () => this.scene.start('title')
-        );
+        ).setAlpha(0.3);
+
+        this.score = new Score(this)
 
         this.dt_accumulator = 0;
 
@@ -64,9 +72,11 @@ export default class Game extends Scene {
 
         const collideShips = (ship, enemy) => {
             ship.damage(SHIP_HIT_DAMAGE);
+            enemy.explode();
         }
 
         this.physics.add.collider(this.player, this.enemies.enemies, collideShips);
+       
 
         // TODO: working on speech and upgrade pop-up
         // this.speech = new Speech(this, this.player)
@@ -87,12 +97,15 @@ export default class Game extends Scene {
     }
 
     update(t, dt) {
-		this.dt_accumulator += dt;
+        this.dt_accumulator += dt;
 		if (this.dt_accumulator > physics_dt) {
 			this.enemies.update_delayed(t, this.dt_accumulator);
             this.player.update_delayed(t, this.dt_accumulator);
             this.bullets.update_delayed(t, this.dt_accumulator);
-			this.dt_accumulator = 0;
+            this.dt_accumulator = 0;
+            
+            // FIXME: remove this when score captured elsewhere
+            this.score.increase(1)
 		}
 
 		this.enemies.update(t, dt);
