@@ -1,4 +1,5 @@
 import CircularCollider from './circularCollider'
+import Health from '../ui/health.js'
 
  export default class player extends CircularCollider {
  	constructor(scene) {
@@ -10,7 +11,7 @@ import CircularCollider from './circularCollider'
     this.velocity = 300;
     this.acceleration = 50;
     this.drag = 50; 
-    this.health = 100;
+    this.health = new Health(scene)
 
     this.setCollideWorldBounds(true);
     this.setDrag(this.drag, this.drag)
@@ -74,8 +75,7 @@ import CircularCollider from './circularCollider'
     }
 
     damage(damage) {
-      console.log(this.health)
-      this.health -= damage;
+      this.health.reduce(damage);
     }
   
   repair(options){
