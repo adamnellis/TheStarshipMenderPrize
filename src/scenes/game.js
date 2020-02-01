@@ -61,7 +61,7 @@ export default class Game extends Scene {
         this.bullet = new Bullet(this, 1000, 500)
 
         // TODO: working on speech and upgrade pop-up
-        // this.speech = new Speech(this)
+        // this.speech = new Speech(this, this.player)
         // this.time.delayedCall(2000, () => {
         //     this.speech.open(
         //         `Captain, our hull is seriously damaged and we have little materials.
