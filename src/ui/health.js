@@ -19,7 +19,7 @@ export default class Health extends Phaser.GameObjects.Text {
 	}
 	
 	reduce(damage){
-		this.health -= damage
-		this.setText("Health: " + damage)
+        this.health -= damage
+		this.setText("Health: " + this.health)
 	}
 }
