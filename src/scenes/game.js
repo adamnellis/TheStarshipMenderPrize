@@ -56,12 +56,14 @@ export default class Game extends Scene {
         this.bullets = new Bullets(this)
 
         this.player = new Player(this)
-        this.player.init()
-    
+
         this.enemies = new Enemies(this, this.player, this.bullets)
         this.enemies.spawn()
 
-        this.physics.add.collider(this.player.ship, this.enemies.list);
+        this.bullet = new Bullet(this, 1000, 500)
+
+
+        this.physics.add.collider(this.player, this.enemies.enemies);
 
         // TODO: working on speech and upgrade pop-up
         // this.speech = new Speech(this, this.player)
