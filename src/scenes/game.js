@@ -78,22 +78,7 @@ export default class Game extends Scene {
         this.physics.add.collider(this.player, this.enemies.enemies, collideShips);
        
 
-        // TODO: working on speech and upgrade pop-up
-        // this.speech = new Speech(this, this.player)
-        // this.time.delayedCall(2000, () => {
-        //     this.speech.open(
-        //         `Captain, our hull is seriously damaged and we have little materials.
-
-        //         I managed to repair the flux capactior drive with our guns secondary heat sink pump. But what do we do with the hull?
-
-
-        //         Pick ONE from the following options:`
-        //     )
-        // });
-
-
-      
-
+        this.speech = new Speech(this, this.player)
     }
 
     update(t, dt) {
@@ -103,7 +88,21 @@ export default class Game extends Scene {
             this.player.update_delayed(t, this.dt_accumulator);
             this.bullets.update_delayed(t, this.dt_accumulator);
             this.dt_accumulator = 0;
-            
+
+            if (this.enemies.isAttacking && (this.enemies.list.length === 0)){
+                this.enemies.wait()
+                this.speech.open(
+                    `Captain, our hull is seriously damaged and we have little materials.
+    
+                    I managed to repair the flux capactior drive with our guns secondary heat sink pump. But what do we do with the hull?
+    
+    
+                    Pick ONE from the following options:`
+                )
+
+                //FIXME: when selected choice unwait enemies.
+            }
+
             // FIXME: remove this when score captured elsewhere
             this.score.increase(1)
 		}

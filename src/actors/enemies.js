@@ -12,11 +12,14 @@ export default class Enemies extends GameObjects.Container {
 		this.player = player;
 		this.bullets = bullets;
 		this.enemies = [];
+		this.isAttacking = false
+		this.isWaiting = false
 
 		this.scene.add.existing(this);
 	}
 
 	spawn() {
+		this.isAttacking = true
 		// this.enemies.push(new EnemyNormalRotatePlayer(this.scene, this.player, this.bullets, 750, 500, 'enemyBlack1.png'))
 		// this.enemies.push(new EnemySlowSpiral(this.scene, this.player, this.bullets, 600));
 
@@ -38,6 +41,11 @@ export default class Enemies extends GameObjects.Container {
 		for (const enemy of this.list) {
 			enemy.update_delayed(t, dt);
 		}
+	}
+
+	wait(){
+		this.isAttacking = false
+		this.isWaiting = true
 	}
 }
 
