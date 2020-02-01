@@ -8,8 +8,8 @@ export default class EnemyRotatePlayer extends Enemy {
 	/**
 	 * An enemy type that stays in the same place and rotates towards the player.
 	 */
-	constructor(scene, player, x, y) {
-		super(scene, player, x, y, "playerShip1_blue.png", ROTATION_RATE, ROTATION_DAMPING, ROTATION_ANGLE);
+	constructor(scene, player, bullets, x, y) {
+		super(scene, player, bullets, x, y, "playerShip1_blue.png", ROTATION_RATE, ROTATION_DAMPING, ROTATION_ANGLE);
 	}
 
 	update_delayed(t, dt) {

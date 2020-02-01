@@ -86,6 +86,10 @@ export default class player extends GameObjects.Container {
 	
 	}
 
+	update_delayed(t, dt) {
+
+    }
+
 	getXPosition() {
 		// TODO: Make this calculate the position from all the objects that make up the player
 		return this.ship.x;

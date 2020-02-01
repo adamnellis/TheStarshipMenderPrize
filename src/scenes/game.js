@@ -5,9 +5,12 @@ import {
     TextButton
 } from '../ui/button'
 import Player from '../actors/player'
-import Bullet from '../actors/bullet'
+import Bullets from "../actors/bullets"
 import Enemies from '../actors/enemies'
 import Speech from '../ui/speech'
+
+const PHYSICS_FPS = 15;
+const physics_dt = 1000 / PHYSICS_FPS;
 
 export default class Game extends Scene {
     constructor() {
@@ -26,8 +29,6 @@ export default class Game extends Scene {
         }
        
         super(config);
-
-       
     }
 
     preload() {}
@@ -48,15 +49,15 @@ export default class Game extends Scene {
             () => this.scene.start('title')
         );
 
-  
+        this.dt_accumulator = 0;
+
+        this.bullets = new Bullets(this)
 
         this.player = new Player(this)
         this.player.init()
     
-        this.enemies = new Enemies(this, this.player)
+        this.enemies = new Enemies(this, this.player, this.bullets)
         this.enemies.spawn()
-
-        this.bullet = new Bullet(this, 1000, 500)
 
         // TODO: working on speech and upgrade pop-up
         // this.speech = new Speech(this)
@@ -74,7 +75,16 @@ export default class Game extends Scene {
     }
 
     update(t, dt) {
-        this.enemies.update(t, dt)
+		this.dt_accumulator += dt;
+		if (this.dt_accumulator > physics_dt) {
+			this.enemies.update_delayed(t, this.dt_accumulator);
+            this.player.update_delayed(t, this.dt_accumulator);
+            this.bullets.update_delayed(t, this.dt_accumulator);
+			this.dt_accumulator = 0;
+		}
+
+		this.enemies.update(t, dt);
         this.player.update(t, dt);
-    }
+        this.bullets.update(t, dt);
+	}
 }

@@ -5,8 +5,8 @@ export default class EnemyMoveFunction extends Enemy {
 	 * An enemy type that moves following a function.
 	 * Intended to be subclassed, so that subclasses can implement the position functions.
 	 */
-	constructor(scene, player, image_name, rotation_angle) {
-		super(scene, player, -10, -10, image_name, 0, 0, rotation_angle);
+	constructor(scene, player, bullets, image_name, rotation_angle) {
+		super(scene, player, bullets, -10, -10, image_name, 0, 0, rotation_angle);
 		this.time = 0;
 	}
 
