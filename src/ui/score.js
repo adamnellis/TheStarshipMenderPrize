@@ -19,5 +19,9 @@ export default class Score extends Phaser.GameObjects.Text {
 	increase(points){
 		this.score += points
 		this.setText("Score: " + this.score)
-	}
+    }
+    
+    getFinalScore(){
+        return this.score
+    }
 }

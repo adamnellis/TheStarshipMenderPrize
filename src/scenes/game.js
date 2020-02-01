@@ -90,7 +90,13 @@ export default class Game extends Scene {
     }
 
     update(t, dt) {
-		this.dt_accumulator += dt;
+        if (this.player.health.isDead()){
+            this.scene.start('gameover', {
+                score: this.score.getFinalScore()
+            })
+        }
+
+        this.dt_accumulator += dt;
 		if (this.dt_accumulator > physics_dt) {
 			this.enemies.update_delayed(t, this.dt_accumulator);
             this.player.update_delayed(t, this.dt_accumulator);
