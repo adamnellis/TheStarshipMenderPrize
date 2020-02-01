@@ -1,8 +1,8 @@
 import { GameObjects } from 'phaser';
 
 export default class Body extends GameObjects.Sprite {
-	constructor(scene, x, y, cursors) {
-		super(scene, x, y, "body")
+	constructor(scene, x, y) {
+		super(scene, x, y, "spaceRedux", "playerShip1_green.png")
 
 		this.cursors = cursors;
 

@@ -11,12 +11,8 @@ export default class Preload extends Scene {
         this.load.image('body', require('../assets/body.png'));
         this.load.image('enemy', require('../assets/enemy.png'));
 
-        // Example Spritesheet
-        // this.load.spritesheet('spritesheet_name', require('../assets/characters/spritesheet.png'), {
-        //     frameWidth: 32,
-        //     frameHeight: 34,
-        //     endFrame: 8
-        // });
+        this.load.atlasXML("spaceRedux", require("../assets/spaceRedux.png"), require("../assets/spaceRedux.xml"))
+        this.load.atlasXML("spaceExtra", require("../assets/spaceExtra.png"), require("../assets/spaceExtra.xml"))
     }
 
     create() {

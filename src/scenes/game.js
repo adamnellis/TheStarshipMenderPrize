@@ -33,7 +33,7 @@ export default class Game extends Scene {
         this.player = new Player(this, this.cursors)
         this.player.init()
 
-        this.enemies = new Enemies(this)
+        this.enemies = new Enemies(this, this.player)
         this.enemies.spawn()
 
        
@@ -43,5 +43,9 @@ export default class Game extends Scene {
         this.player.update(time, delta);
 
 
+    }
+
+    update(t, dt) {
+        this.enemies.update(t, dt)
     }
 }
