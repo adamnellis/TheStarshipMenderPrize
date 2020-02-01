@@ -1,6 +1,7 @@
 import {
 	GameObjects
 } from 'phaser'
+import config from './../config'
 
 export default class Enemy extends GameObjects.Sprite {
 	constructor(scene, player, x, y, image_name, rotation_rate, rotation_damping, rotation_angle) {
@@ -27,6 +28,9 @@ export default class Enemy extends GameObjects.Sprite {
 	}
 
 	update_delayed(t, dt) {
-		// Empty, for subclasses to override
+		// Destroy enemies when they move off the screen
+		if (this.x < -config.width || this.x > 2 * config.width || this.y < -config.height || this.y > 2 * config.height) {
+			this.destroy();
+		}
 	}
 }

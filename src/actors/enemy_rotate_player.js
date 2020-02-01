@@ -13,6 +13,8 @@ export default class EnemyRotatePlayer extends Enemy {
 	}
 
 	update_delayed(t, dt) {
+		super.update_delayed(t, dt);
+
 		// Calculate force to rotate enemy towards player
 		const angle_difference = normalise_angle_plus_minus_pi(Math.atan2(this.player.getYPosition() - this.y, this.player.getXPosition() - this.x) - this.rotation_angle);
 		const steering_force = this.rotation_rate * angle_difference;
