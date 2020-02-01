@@ -18,11 +18,9 @@ export default class Enemies extends GameObjects.Container {
 	}
 
 	spawn() {
-		super.add(new EnemyRotatePlayer(this.scene, this.player,  200, 200));
-		super.add(new EnemyRotatePlayer(this.scene, this.player, 1200, 200));
+		super.add(new EnemyNormalRotatePlayer(this.scene, this.player, 750, 500, 'enemyBlack1.png'));
 
-		super.add(new EnemySpiral(this.scene, this.player, 200));
-		super.add(new EnemySpiral(this.scene, this.player, 600, 1/1000, 50, 200));
+		super.add(new EnemySlowSpiral(this.scene, this.player, 600));
 	}
 
 	update(t, dt) {
@@ -42,4 +40,25 @@ export default class Enemies extends GameObjects.Container {
 			enemy.update_delayed(t, dt);
 		}
 	}
+}
+
+class EnemySlowSpiral extends EnemySpiral {
+
+	constructor(scene, player, y_line) {
+
+		super(scene, player, y_line, 'enemyRed3.png', 1 / 3000, 150, 150)
+
+	}
+
+}
+
+class EnemyNormalRotatePlayer extends EnemyRotatePlayer{
+
+	constructor(scene, player, x, y) {
+
+		super(scene, player, x, y, 'enemyBlack2.png', -Math.PI / 2)
+
+	}
+
+
 }

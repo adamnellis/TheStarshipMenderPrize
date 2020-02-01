@@ -4,9 +4,9 @@ import {
 import config from './../config'
 
 export default class Enemy extends GameObjects.Sprite {
-	constructor(scene, player, x, y, image_name, rotation_rate, rotation_damping, rotation_angle) {
+	constructor(scene, player, x, y, image_name, rotation_angle, rotation_rate, rotation_damping) {
 		super(scene, x, y, "spaceRedux", image_name);
-		this.angle = Math.PI / 2;
+		this.rotation_angle = rotation_angle;
 
 		// this.setOrigin(0, 0);
 		this.player = player;
@@ -16,15 +16,17 @@ export default class Enemy extends GameObjects.Sprite {
 
 		this.rotation_force = 0;
 		this.angular_rotation = 0;
-		this.rotation_angle = rotation_angle;
+		this.physics_angle = rotation_angle;
+
+		console.log(this.rotation_angle)
 	}
 
 	update(t, dt) {
 		// Integrate motion
-		this.rotation_angle += this.angular_rotation * dt;
+		this.physics_angle += this.angular_rotation * dt;
 		this.angular_rotation += this.rotation_force * dt;
 		// Set rotation on shape
-		this.rotation = this.rotation_angle + Math.PI / 2;
+		this.rotation = this.physics_angle + this.rotation_angle;
 	}
 
 	update_delayed(t, dt) {
