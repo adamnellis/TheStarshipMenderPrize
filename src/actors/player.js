@@ -100,6 +100,13 @@ export default class player extends GameObjects.Container {
     // }
 	}
 
+	getXPosition() {
+		// TODO: Make this calculate the position from all the objects that make up the player
+		return this.ship.x;
+	}
 
-
+	getYPosition() {
+		// TODO: Make this calculate the position from all the objects that make up the player
+		return this.ship.y;
+	}
 }

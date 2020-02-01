@@ -5,14 +5,14 @@ import {
     TextButton
 } from '../ui/button';
 
-export default class Title extends Scene {
+export default class GameOver extends Scene {
     constructor() {
-        super('title')
+        super('gameover')
     }
 
     preload() {
 
-        this.load.image('background', require('../assets/title.png'));
+        this.load.image('background', require('../assets/gameOver.png'));
 
     }
 
@@ -24,7 +24,7 @@ export default class Title extends Scene {
             this,
             950,
             700,
-            'Start Game', {
+            'Restart Game', {
                 font: "bold 50px Arial",
                 fill: '#bb6c2e'
             },

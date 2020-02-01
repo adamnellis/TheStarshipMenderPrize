@@ -1,8 +1,12 @@
-import { Scene } from 'phaser';
-
-import Enemies from '../actors/enemies';
-import Player from '../actors/player';
-import { TextButton } from '../ui/button';
+import {
+    Scene
+} from 'phaser'
+import {
+    TextButton
+} from '../ui/button'
+import Player from '../actors/player'
+import Enemies from '../actors/enemies'
+import Speech from '../ui/speech'
 
 export default class Game extends Scene {
     constructor() {
@@ -51,7 +55,9 @@ export default class Game extends Scene {
         this.enemies = new Enemies(this, this.player)
         this.enemies.spawn()
 
-       
+        // TODO: working on speech and upgrade pop-up
+        // this.speech = new Speech(this)
+        // this.speech.open('Oh no the guns are seriously damaged and we have little materials. This is the best I can do:')
     }
 
     update(t, dt) {
