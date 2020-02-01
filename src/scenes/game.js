@@ -72,7 +72,7 @@ export default class Game extends Scene {
 
         const collideShips = (ship, enemy) => {
             ship.damage(SHIP_HIT_DAMAGE);
-            enemy.explode();
+            enemy.die();
         }
 
         this.physics.add.collider(this.player, this.enemies.enemies, collideShips);
