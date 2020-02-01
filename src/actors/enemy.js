@@ -2,11 +2,11 @@ import {
 	GameObjects
 } from 'phaser'
 
-export default class Enemy extends GameObjects.IsoTriangle {
+export default class Enemy extends GameObjects.Sprite {
 	constructor(scene, player, x, y) {
-		super(scene, x, y, 50, 50, true, 0xdddd00, 0xdddd00, 0xdddd00);
-		// scene.add.existing(this);
-		this.setOrigin(0, 0);
+		super(scene, x, y, "spaceRedux", "playerShip1_blue.png")
+
+		// this.setOrigin(0, 0);
 		this.player = player;
 
 		this.rotation_rate = 0.00001;
