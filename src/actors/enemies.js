@@ -9,14 +9,19 @@ export default class Enemies extends GameObjects.Container {
 		super(scene);
 		this.player = player;
 		this.bullets = bullets;
+		this.enemies = [];
 
 		this.scene.add.existing(this);
 	}
 
 	spawn() {
-		super.add(new EnemyNormalRotatePlayer(this.scene, this.player, this.bullets, 750, 500, 'enemyBlack1.png'));
+		this.enemies.push(new EnemyNormalRotatePlayer(this.scene, this.player, this.bullets, 750, 500, 'enemyBlack1.png'))
+		this.enemies.push(new EnemySlowSpiral(this.scene, this.player, this.bullets, 600));
 
-		super.add(new EnemySlowSpiral(this.scene, this.player, this.bullets, 600));
+		for(const enemy of this.enemies) {
+			super.add(enemy);
+		}
+		
 	}
 
 	update(t, dt) {
