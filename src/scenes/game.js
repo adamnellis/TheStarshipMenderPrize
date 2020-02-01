@@ -61,6 +61,8 @@ export default class Game extends Scene {
         this.enemies = new Enemies(this, this.player, this.bullets)
         this.enemies.spawn()
 
+        this.physics.add.collider(this.player.ship, this.enemies.list);
+
         // TODO: working on speech and upgrade pop-up
         // this.speech = new Speech(this, this.player)
         // this.time.delayedCall(2000, () => {
@@ -88,5 +90,5 @@ export default class Game extends Scene {
 		this.enemies.update(t, dt);
         this.player.update(t, dt);
         this.bullets.update(t, dt);
-	}
+    }
 }

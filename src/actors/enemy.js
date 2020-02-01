@@ -1,10 +1,8 @@
-import {
-	GameObjects
-} from 'phaser'
 import config from './../config'
 import Bullet from "./bullet";
+import CircularCollider from './circularCollider'
 
-export default class Enemy extends GameObjects.Sprite {
+export default class Enemy extends CircularCollider {
 	constructor(scene, player, bullets, x, y, image_name, rotation_angle, rotation_rate, rotation_damping) {
 		super(scene, x, y, "spaceRedux", image_name);
 		this.bullets = bullets;
