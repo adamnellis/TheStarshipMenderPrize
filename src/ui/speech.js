@@ -4,12 +4,15 @@ import {
 import Typewriter from './speechParts/typewriter'
 import Avatar from './speechParts/avatar'
 import IconButton from './speechParts/iconButton'
+import IconText from './speechParts/iconText'
+import RepairLogic from './speechParts/repairLogic'
 
 export default class Speech extends GameObjects.Container {
-	constructor(scene) {
+	constructor(scene, player) {
 		super(scene)
-
 		this.isOpen = false
+		this.player = player
+		this.repairLogic = new RepairLogic(player)
 
 		this.typewriter = new Typewriter(
 			this.scene,
@@ -24,46 +27,49 @@ export default class Speech extends GameObjects.Container {
 			},
 		)
 
-		super.add(new Avatar(this.scene, 150, 190))
-
+		this.avatar = new Avatar(this.scene, 150, 190)
+		this.scene.add.existing(this.avatar)
 		this.scene.add.existing(this)
 	}
 
 	open(text) {
 		this.isOpen = true
-		this.typewriter.write(text)
+		this.avatar.open()
 
-		this.scene.time.delayedCall(this.typewriter.duration * text.length, () => {
-			this.addSelections()
+		this.scene.time.delayedCall(this.avatar.duration, () => {
+			this.typewriter.write(text)
+
+			this.scene.time.delayedCall(this.typewriter.duration * text.length, () => {
+				this.addSelections()
+			})
 		})
-
-		// EXAMPLE: how to clear speech.
-		// this.scene.time.delayedCall(6000, () => {
-		// 	this.clear()
-		// });
 	}
 
 	addSelections() {
-		this.scene.time.delayedCall(1000, () => {
+		let texts = this.repairLogic.generate()
+
+		this.addSelection(0, 350, 500, texts[0])
+		this.addSelection(1, 750, 500, texts[1])
+		this.addSelection(2, 1150, 500, texts[2])
+	}
+
+	addSelection(number, x, y, text) {
+		this.scene.time.delayedCall(((number + 1) * 500) + 500, () => {
 			if (this.isOpen) {
-				super.add(new IconButton(this.scene, 350, 500))
+				super.add(new IconButton(this.scene, x, y,
+					() => {
+						this.repairLogic.pick(number)
+						this.clear()
+					}
+				))
+				super.add(new IconText(this.scene, x, y, text))
 			}
-		});
-		this.scene.time.delayedCall(1500, () => {
-			if (this.isOpen) {
-				super.add(new IconButton(this.scene, 750, 500))
-			}
-		});
-		this.scene.time.delayedCall(2000, () => {
-			if (this.isOpen) {
-				super.add(new IconButton(this.scene, 1150, 500))
-			}
-		});
+		})
 	}
 
 	clear() {
 		this.isOpen = false
-
+		this.avatar.clear()
 		this.typewriter.clear()
 		this.removeAll(true)
 	}

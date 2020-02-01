@@ -11,13 +11,33 @@ import Speech from '../ui/speech'
 
 export default class Game extends Scene {
     constructor() {
-        super('game')
+        const config = {
+            physics: {
+                default: 'arcade',
+                arcade: {
+                    debug: true,
+                    gravity: {
+                        y: 0
+                    }
+                }
+            },
+            width: 800,
+            height: 600,
+            key: 'game',
+            type: Phaser.WEBGL,
+        }
+
+        super(config);
+
+
     }
 
     preload() {}
 
     create(data) {
         // data is passed from button
+
+        this.physics.world.setBoundsCollision(true, true, true, true);
 
         this.back_button = new TextButton(
             this,
@@ -30,6 +50,8 @@ export default class Game extends Scene {
             () => this.scene.start('title')
         );
 
+
+
         this.player = new Player(this)
         this.player.init()
 
@@ -39,7 +61,7 @@ export default class Game extends Scene {
         this.bullet = new Bullet(this, 1000, 500)
 
         // TODO: working on speech and upgrade pop-up
-        // this.speech = new Speech(this)
+        // this.speech = new Speech(this, this.player)
         // this.time.delayedCall(2000, () => {
         //     this.speech.open(
         //         `Captain, our hull is seriously damaged and we have little materials.
@@ -55,5 +77,6 @@ export default class Game extends Scene {
 
     update(t, dt) {
         this.enemies.update(t, dt)
+        this.player.update(t, dt);
     }
 }
