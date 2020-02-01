@@ -19,7 +19,9 @@ export default class Game extends Scene {
                 default: 'arcade',
                 arcade: {
                     debug: true,
-                    gravity: { y: 0 }
+                    gravity: {
+                        y: 0
+                    }
                 }
             },
             width: 800,
@@ -27,7 +29,7 @@ export default class Game extends Scene {
             key: 'game',
             type: Phaser.WEBGL,
         }
-       
+
         super(config);
     }
 
@@ -60,7 +62,7 @@ export default class Game extends Scene {
         this.enemies.spawn()
 
         // TODO: working on speech and upgrade pop-up
-        // this.speech = new Speech(this)
+        // this.speech = new Speech(this, this.player)
         // this.time.delayedCall(2000, () => {
         //     this.speech.open(
         //         `Captain, our hull is seriously damaged and we have little materials.
