@@ -1,11 +1,8 @@
-import {
-    Scene
-} from 'phaser'
-import {
-    TextButton
-} from '../ui/button'
-import Player from '../actors/player'
-import Enemies from '../actors/enemies'
+import { Scene } from 'phaser';
+
+import Enemies from '../actors/enemies';
+import Player from '../actors/player';
+import { TextButton } from '../ui/button';
 
 export default class Game extends Scene {
     constructor() {
@@ -28,10 +25,23 @@ export default class Game extends Scene {
             () => this.scene.start('title')
         );
 
-        this.player = new Player(this)
+        this.cursors = this.input.keyboard.createCursorKeys();
+
+        console.log('cursor');
+        console.log(this.cursors);
+
+        this.player = new Player(this, this.cursors)
         this.player.init()
 
         this.enemies = new Enemies(this)
         this.enemies.spawn()
+
+       
+    }
+
+    update(time,delta) {
+        this.player.update(time, delta);
+
+
     }
 }
