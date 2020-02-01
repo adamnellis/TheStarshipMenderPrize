@@ -18,7 +18,7 @@ export default class Title extends Scene {
 
     create() {
 
-        this.add.image(700, 432, 'background');
+        this.add.image(750, 450, 'background');
 
         this.title_button_small = new TextButton(
             this,

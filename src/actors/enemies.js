@@ -1,27 +1,28 @@
 import {
 	GameObjects
 } from 'phaser'
-import Enemy from './enemy'
+import EnemyRotatePlayer from './enemy_rotate_player'
+import EnemySpiral from "./enemy_spiral"
 
 const PHYSICS_FPS = 15;
 const physics_dt = 1000 / PHYSICS_FPS;
 
 export default class Enemies extends GameObjects.Container {
 	constructor(scene, player) {
-		super(scene)
+		super(scene);
 		this.player = player;
 
-		this.scene.add.existing(this)
+		this.scene.add.existing(this);
 
 		this.dt_accumulator = 0;
 	}
 
 	spawn() {
-		super.add(new Enemy(this.scene, this.player, 400, 200))
-		super.add(new Enemy(this.scene, this.player, 600, 200))
-		super.add(new Enemy(this.scene, this.player, 800, 200))
-		super.add(new Enemy(this.scene, this.player, 1000, 200))
-		super.add(new Enemy(this.scene, this.player, 1200, 200))
+		super.add(new EnemyRotatePlayer(this.scene, this.player,  200, 200));
+		super.add(new EnemyRotatePlayer(this.scene, this.player, 1200, 200));
+
+		super.add(new EnemySpiral(this.scene, this.player, 200));
+		super.add(new EnemySpiral(this.scene, this.player, 600, 1/1000, 50, 200));
 	}
 
 	update(t, dt) {
