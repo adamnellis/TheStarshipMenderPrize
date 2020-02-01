@@ -22,6 +22,14 @@ export default class Enemy extends CircularCollider {
 		this.force_y = 0;
 		this.velocity_x = 0;
 		this.velocity_y = 0;
+
+		this.health = 100
+		this.dying = false
+
+		//Number of times to flash
+		this.animation_cycles = 3
+		this.animation_count = 0
+
 	}
 
 	update(t, dt) {
@@ -37,6 +45,7 @@ export default class Enemy extends CircularCollider {
 	}
 
 	update_delayed(t, dt) {
+
 		// Destroy enemies when they move off the screen
 		if (this.x < -config.width || this.x > 2 * config.width || this.y < -config.height || this.y > 2 * config.height) {
 			this.destroy();
@@ -62,9 +71,47 @@ export default class Enemy extends CircularCollider {
 		this.scene.physics.add.collider(this.player, bullet, shipShot);
 	}
 
-	//TODO use the damage / die thing
-	explode() {
-		this.destroy();
-		return
+	damage(damage_dealt){
+
+		this.health = this.health - damage_dealt
+
+		if(this.health <= 0 && this.dying==false){
+			this.dying = true
+
+			//Turn physics off
+			this.body.enable = false
+
+			this.death_animation()
+
+		}
+
 	}
+
+	death_animation(){
+		this.tint = 0xff0000
+
+		if(this.animation_count == this.animation_cycles){
+			this.die()
+		}
+		else{
+			this.animation_count +=1
+			this.scene.time.delayedCall(300, () => {this.life_animation()})
+		}
+	}
+
+	life_animation(){
+		this.clearTint()
+		this.scene.time.delayedCall(300,()=>{this.death_animation()})
+	}
+
+
+	die(){
+
+		//Todo: Deposit resource
+
+		//Kill this ship
+		this.destroy();
+
+	}
+
 }

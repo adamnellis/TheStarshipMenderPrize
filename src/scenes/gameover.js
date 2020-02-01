@@ -5,6 +5,7 @@ import {
     TextButton
 } from '../ui/button';
 import FinalScore from '../ui/finalScore'
+import TopScore from '../ui/topScore'
 
 export default class GameOver extends Scene {
     constructor() {
@@ -21,6 +22,7 @@ export default class GameOver extends Scene {
         this.add.image(750, 450, 'backgroundGameOver');
 
         this.score = new FinalScore(this, data.score)
+        this.score = new TopScore(this, data.score)
 
         this.title_button_small = new TextButton(
             this,
