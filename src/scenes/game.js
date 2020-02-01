@@ -35,16 +35,19 @@ export default class Game extends Scene {
         this.enemies = new Enemies(this, this.player)
         this.enemies.spawn()
 
-        // TODO: working on speech and upgrade pop-up
+        // TODO: working on speech and upgrade pop - up
         // this.speech = new Speech(this)
-        // this.speech.open(
-        //     `Captain, our hull is seriously damaged and we have little materials.
+        // this.time.delayedCall(2000, () => {
+        //     this.speech.open(
+        //         `Captain, our hull is seriously damaged and we have little materials.
 
-        //     I managed to repair the flux capactior drive with our guns secondary heat sink pump. But what do we do with the hull?
+        //         I managed to repair the flux capactior drive with our guns secondary heat sink pump. But what do we do with the hull?
 
 
-        //     Pick ONE from the following options:`
-        // )
+        //         Pick ONE from the following options:`
+        //     )
+        // });
+
     }
 
     update(t, dt) {

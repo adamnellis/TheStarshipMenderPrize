@@ -4,6 +4,7 @@ export default class Typewriter extends Phaser.GameObjects.Text {
 
 		this.scene = scene
 		this.timer = null
+		this.duration = 15
 
 		scene.add.existing(this)
 	}
@@ -11,7 +12,7 @@ export default class Typewriter extends Phaser.GameObjects.Text {
 	write(text) {
 		this.completeText = text
 		this.index = 0
-		this.timer = this.scene.time.delayedCall(10, this.next, [], this);
+		this.timer = this.scene.time.delayedCall(this.duration, this.next, [], this);
 	}
 
 	clear() {
@@ -25,7 +26,7 @@ export default class Typewriter extends Phaser.GameObjects.Text {
 		this.index += 1
 
 		if (this.index < this.completeText.length) {
-			this.timer = this.scene.time.delayedCall(15, this.next, [], this);
+			this.timer = this.scene.time.delayedCall(this.duration, this.next, [], this);
 		}
 	}
 }
