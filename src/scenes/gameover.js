@@ -13,12 +13,12 @@ export default class GameOver extends Scene {
 
     preload() {
 
-        this.load.image('background', require('../assets/gameOver.png'));
+        this.load.image('backgroundGameOver', require('../assets/gameOver.png'));
 
     }
 
     create(data) {
-        this.add.image(750, 450, 'background');
+        this.add.image(750, 450, 'backgroundGameOver');
 
         this.score = new FinalScore(this, data.score)
 
