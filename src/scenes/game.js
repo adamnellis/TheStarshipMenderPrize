@@ -45,14 +45,14 @@ export default class Game extends Scene {
 
         this.back_button = new TextButton(
             this,
-            100,
-            200,
-            'Back', {
+            50,
+            50,
+            'Exit', {
                 font: "bold 32px Arial",
-                fill: '#0f0'
+                fill: '#fff'
             },
             () => this.scene.start('title')
-        );
+        ).setAlpha(0.3);
 
         this.score = new Score(this)
 
