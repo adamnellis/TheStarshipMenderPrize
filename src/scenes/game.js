@@ -37,7 +37,14 @@ export default class Game extends Scene {
 
         // TODO: working on speech and upgrade pop-up
         // this.speech = new Speech(this)
-        // this.speech.open('Oh no the guns are seriously damaged and we have little materials. This is the best I can do:')
+        // this.speech.open(
+        //     `Captain, our hull is seriously damaged and we have little materials.
+
+        //     I managed to repair the flux capactior drive with our guns secondary heat sink pump. But what do we do with the hull?
+
+
+        //     Pick ONE from the following options:`
+        // )
     }
 
     update(t, dt) {

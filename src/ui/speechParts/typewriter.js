@@ -1,4 +1,4 @@
-export class Typewriter extends Phaser.GameObjects.Text {
+export default class Typewriter extends Phaser.GameObjects.Text {
 	constructor(scene, x, y, style) {
 		super(scene, x, y, "", style);
 
@@ -25,7 +25,7 @@ export class Typewriter extends Phaser.GameObjects.Text {
 		this.index += 1
 
 		if (this.index < this.completeText.length) {
-			this.timer = this.scene.time.delayedCall(20, this.next, [], this);
+			this.timer = this.scene.time.delayedCall(15, this.next, [], this);
 		}
 	}
 }
