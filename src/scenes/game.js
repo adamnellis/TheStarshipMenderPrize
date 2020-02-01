@@ -11,6 +11,7 @@ import Speech from '../ui/speech'
 
 const PHYSICS_FPS = 15;
 const physics_dt = 1000 / PHYSICS_FPS;
+const SHIP_HIT_DAMAGE = 50;
 
 export default class Game extends Scene {
     constructor() {
@@ -61,7 +62,11 @@ export default class Game extends Scene {
         this.enemies = new Enemies(this, this.player, this.bullets)
         this.enemies.spawn()
 
-        this.physics.add.collider(this.player, this.enemies.enemies[0]);
+        const collideShips = (ship, enemy) => {
+            ship.damage(SHIP_HIT_DAMAGE);
+        }
+
+        this.physics.add.collider(this.player, this.enemies.enemies, collideShips);
 
         // TODO: working on speech and upgrade pop-up
         // this.speech = new Speech(this, this.player)
@@ -77,9 +82,7 @@ export default class Game extends Scene {
         // });
 
 
-        const collideShips = (ship, enemy) => {
-            ship.damage(50);
-        }
+      
 
     }
 
