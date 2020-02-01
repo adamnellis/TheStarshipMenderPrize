@@ -76,6 +76,7 @@ import Health from '../ui/health.js'
 
     damage(damage) {
       this.health.reduce(damage);
+     
     }
   
   repair(options){

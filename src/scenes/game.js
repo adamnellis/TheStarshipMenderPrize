@@ -37,6 +37,10 @@ export default class Game extends Scene {
 
     preload() {}
 
+    endGame(){
+        this.scene.start('gameover')
+    }
+
 
     create(data) {
         // data is passed from button
