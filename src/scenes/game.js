@@ -64,9 +64,11 @@ export default class Game extends Scene {
 
         const collideShips = (ship, enemy) => {
             ship.damage(SHIP_HIT_DAMAGE);
+            enemy.explode();
         }
 
         this.physics.add.collider(this.player, this.enemies.enemies, collideShips);
+       
 
         // TODO: working on speech and upgrade pop-up
         // this.speech = new Speech(this, this.player)

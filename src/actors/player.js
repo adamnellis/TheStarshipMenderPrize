@@ -74,6 +74,7 @@ import CircularCollider from './circularCollider'
     }
 
     damage(damage) {
+      console.log(this.health)
       this.health -= damage;
     }
   
