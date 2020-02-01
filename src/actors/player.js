@@ -10,6 +10,7 @@ import CircularCollider from './circularCollider'
     this.velocity = 300;
     this.acceleration = 50;
     this.drag = 50; 
+    this.health = 100;
 
     this.setCollideWorldBounds(true);
     this.setDrag(this.drag, this.drag)
@@ -70,6 +71,11 @@ import CircularCollider from './circularCollider'
 
 	update_delayed(t, dt) {
 
+    }
+
+    damage(damage) {
+      this.health -= damage;
+      console.log(damage)
     }
   
   repair(options){

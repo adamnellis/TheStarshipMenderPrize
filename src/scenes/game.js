@@ -35,6 +35,7 @@ export default class Game extends Scene {
 
     preload() {}
 
+
     create(data) {
         // data is passed from button
 
@@ -60,10 +61,7 @@ export default class Game extends Scene {
         this.enemies = new Enemies(this, this.player, this.bullets)
         this.enemies.spawn()
 
-        this.bullet = new Bullet(this, 1000, 500)
-
-
-        this.physics.add.collider(this.player, this.enemies.enemies);
+        this.physics.add.collider(this.player, this.enemies.enemies[0]);
 
         // TODO: working on speech and upgrade pop-up
         // this.speech = new Speech(this, this.player)
@@ -77,6 +75,11 @@ export default class Game extends Scene {
         //         Pick ONE from the following options:`
         //     )
         // });
+
+
+        const collideShips = (ship, enemy) => {
+            ship.damage(50);
+        }
 
     }
 
