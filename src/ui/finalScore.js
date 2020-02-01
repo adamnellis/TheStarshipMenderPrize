@@ -1,6 +1,6 @@
 export default class FinalScore extends Phaser.GameObjects.Text {	
 	constructor(scene, score) {
-        super(scene, 900, 500,
+        super(scene, 750, 310,
             "Score: " + score, {
                 font: "bold 64px Arial",
                 fill: '#0f0',
