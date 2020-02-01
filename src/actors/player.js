@@ -12,20 +12,14 @@ export default class player extends GameObjects.Container {
     this.velocity = 300;
     this.acceleration = 50;
     this.drag = 50; 
-
-
-
 	}
 
 	init() {
-		// super.add(new Body(this.scene, 500, 200))
+    this.ship = new Body(this.scene, 500, 200);
+		super.add(this.ship)
 
-		this.ship = this.scene.physics.add.sprite(500, 200,  "spaceRedux", "playerShip1_green.png");
     this.ship.setCollideWorldBounds(true);
-    const w = this.ship.body.width / 2 - 35;
-    const h = this.ship.body.height / 2 - 35;
-
-    this.ship.body.setCircle(35, w, h);
+ 
     this.ship.setDrag(this.drag)
 	
   }
