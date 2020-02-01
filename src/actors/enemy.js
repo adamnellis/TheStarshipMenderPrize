@@ -39,6 +39,6 @@ export default class Enemy extends CircularCollider {
 	shoot() {
 		// Create a bullet moving in the direction that the enemy is pointing
 		// TODO: Take into account this.rotation_angle
-		this.bullets.add(new Bullet(this.scene, this.x, this.y, Math.sin(this.rotation - this.rotation_angle), Math.cos(this.rotation - this.rotation_angle)))
+		this.bullets.add(new Bullet(this.scene, this.x, this.y, -Math.sin(this.rotation), Math.cos(this.rotation)))
 	}
 }
