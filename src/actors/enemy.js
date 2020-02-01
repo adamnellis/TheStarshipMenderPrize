@@ -16,7 +16,6 @@ export default class Enemy extends CircularColider {
 		this.angular_rotation = 0;
 		this.physics_angle = rotation_angle;
 
-		console.log(this.rotation_angle)
 	}
 
 	update(t, dt) {
