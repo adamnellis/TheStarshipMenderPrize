@@ -9,8 +9,10 @@ export default class player extends GameObjects.Container {
     this.cursors = scene.input.keyboard.createCursorKeys();
     
     this.angularVelocity = 100;
-    this.velocity = 100;
-    this.accelartion = 100;
+    this.velocity = 200;
+    this.accelartion = 50;
+
+
 
 	}
 
@@ -19,6 +21,8 @@ export default class player extends GameObjects.Container {
 
 		this.ship = this.scene.physics.add.sprite(500, 200,  "spaceRedux", "playerShip1_green.png");
     this.ship.setCollideWorldBounds(true);
+
+    this.ship.setDrag(100)
 	
 	}
 
@@ -54,8 +58,9 @@ export default class player extends GameObjects.Container {
       this.ship.setVelocity(speedX * this.velocity, speedY * - this.velocity);
 
 
-      // this.ship.setAccelerationX(+speedX * this.accelartion);
-      // this.ship.setAccelerationY(speedY * - this.accelartion);
+      this.ship.setAccelerationX(+speedX * this.accelartion);
+      this.ship.setAccelerationY(speedY * - this.accelartion);
+
 
     }
     else if (this.cursors.down.isDown)
@@ -64,9 +69,9 @@ export default class player extends GameObjects.Container {
     }
     else
     {
-      // this.ship.setVelocity(0);#
-      // this.ship.setAccelerationX(0);
-      // this.ship.setAccelerationY(0);
+      // this.ship.setVelocity(0);
+      this.ship.setAccelerationX(0);
+      this.ship.setAccelerationY(0);
 
     }
 
