@@ -25,7 +25,6 @@ export default class player extends GameObjects.Container {
   }
   
   _move(forward) {
-
     const direction = forward ? 1 : -0.5;
 
     // * UP 0, DOWN -180, RIGHT 90, LEFT -90
@@ -92,7 +91,8 @@ export default class player extends GameObjects.Container {
   
   repair(options){
     for (let key in options){
-      console.log(key)
+      console.log(key +": " + this[key] + " -> " + options[key])
+      this[key] = options[key]
     }
   }
 }

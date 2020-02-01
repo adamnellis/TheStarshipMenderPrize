@@ -7,33 +7,34 @@ export default class RepairLogic {
 	}
 
 	generate() {
-		this.choices = [
-			{text: `
-			Bent Gun
+		this.choices = [{
+			text: `
+			Install Lightning
 			
-			Change 1
-			Change 2
+			Fast speed
+			Fast turn
 			`,
 			options: {
-				accelartion: this.player.accelartion + 5
+				velocity: this.player.velocity + 500,
+				angularVelocity: this.player.angularVelocity + 500
 			}
-		},
-			{text: `
-			Ting Ting
+		}, {
+			text: `
+			Serious Side Thrusters
 			
-			Change a
-			Change b
-			`, options: {
-				accelartion: this.player.accelartion + 1
-			}},
-			{text: `
-			A happy thing
+			Crazy Fast turn
+			`,
+			options: {
+				angularVelocity: this.player.angularVelocity + 50000
+			}
+		}, {
+			text: `
+			Give Up.
 			
-			lol cakes
-			test string
-			`, options: {
-			}}
-		]
+			Nothing.
+			`,
+			options: {}
+		}]
 
 		return this.choices.map(o => o.text)
 	}
