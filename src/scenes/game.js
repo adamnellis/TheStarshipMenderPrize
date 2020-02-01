@@ -14,16 +14,23 @@ export default class Game extends Scene {
                     gravity: { y: 0 }
                 }
             },
+            width: 800,
+            height: 600,
             key: 'game',
+            type: Phaser.WEBGL,
         }
        
         super(config);
+
+       
     }
 
     preload() {}
 
     create(data) {
         // data is passed from button
+
+        this.physics.world.setBoundsCollision(true, true, true, true);
 
         this.back_button = new TextButton(
             this,
@@ -40,7 +47,7 @@ export default class Game extends Scene {
 
         this.player = new Player(this)
         this.player.init()
-
+    
         this.enemies = new Enemies(this, this.player)
         this.enemies.spawn()
 
