@@ -5,6 +5,7 @@ import {
     TextButton
 } from '../ui/button'
 import Player from '../actors/player'
+import Bullet from '../actors/bullet'
 import Enemies from '../actors/enemies'
 import Speech from '../ui/speech'
 
@@ -35,7 +36,9 @@ export default class Game extends Scene {
         this.enemies = new Enemies(this, this.player)
         this.enemies.spawn()
 
-        // TODO: working on speech and upgrade pop - up
+        this.bullet = new Bullet(this, 1000, 500)
+
+        // TODO: working on speech and upgrade pop-up
         // this.speech = new Speech(this)
         // this.time.delayedCall(2000, () => {
         //     this.speech.open(
