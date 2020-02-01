@@ -1,7 +1,7 @@
 import config from './../config'
-import CircularColider from './circularColider'
+import CircularCollider from './circularCollider'
 
-export default class Enemy extends CircularColider {
+export default class Enemy extends CircularCollider {
 	constructor(scene, player, x, y, image_name, rotation_angle, rotation_rate, rotation_damping) {
 		super(scene, x, y, "spaceRedux", image_name);
 		this.rotation_angle = rotation_angle;

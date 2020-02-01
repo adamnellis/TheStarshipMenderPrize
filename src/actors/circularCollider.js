@@ -1,6 +1,6 @@
-import Colider from './colider'
+import Collider from './collider'
 
-export default class CircularColider extends Colider {
+export default class CircularCollider extends Collider {
 	constructor(scene, x, y, texture, image_name) {
 		super(scene, x, y, texture, image_name);
 

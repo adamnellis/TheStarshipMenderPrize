@@ -10,7 +10,7 @@ export default class player extends GameObjects.Container {
     
     this.angularVelocity = 100;
     this.velocity = 300;
-    this.accelartion = 50;
+    this.acceleration = 50;
     this.drag = 50; 
 	}
 
@@ -20,7 +20,7 @@ export default class player extends GameObjects.Container {
 
     this.ship.setCollideWorldBounds(true);
  
-    this.ship.setDrag(this.drag)
+    this.ship.setDrag(this.drag, this.drag)
 	
   }
   
@@ -35,8 +35,8 @@ export default class player extends GameObjects.Container {
     const speedY = Math.cos(this.ship.rotation) * direction;
 
     this.ship.setVelocity(speedX * this.velocity, speedY * - this.velocity);
-    this.ship.setAccelerationX(+speedX * this.accelartion);
-    this.ship.setAccelerationY(speedY * - this.accelartion);
+    this.ship.setAccelerationX(+speedX * this.acceleration);
+    this.ship.setAccelerationY(speedY * - this.acceleration);
 
   }
 
