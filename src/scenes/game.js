@@ -6,7 +6,18 @@ import { TextButton } from '../ui/button';
 
 export default class Game extends Scene {
     constructor() {
-        super('game')
+        const config = {
+            physics: {
+                default: 'arcade',
+                arcade: {
+                    debug: true,
+                    gravity: { y: 0 }
+                }
+            },
+            key: 'game',
+        }
+       
+        super(config);
     }
 
     preload() {}
@@ -25,12 +36,9 @@ export default class Game extends Scene {
             () => this.scene.start('title')
         );
 
-        this.cursors = this.input.keyboard.createCursorKeys();
+  
 
-        console.log('cursor');
-        console.log(this.cursors);
-
-        this.player = new Player(this, this.cursors)
+        this.player = new Player(this)
         this.player.init()
 
         this.enemies = new Enemies(this, this.player)
@@ -39,13 +47,8 @@ export default class Game extends Scene {
        
     }
 
-    update(time,delta) {
-        this.player.update(time, delta);
-
-
-    }
-
     update(t, dt) {
         this.enemies.update(t, dt)
+        this.player.update(t, dt);
     }
 }
