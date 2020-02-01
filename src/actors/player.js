@@ -1,6 +1,3 @@
-// import { GameObjects } from 'phaser';
-// import Body from './playerParts/body'
-
 import CircularCollider from './circularCollider'
 
  export default class player extends CircularCollider {
@@ -71,7 +68,9 @@ import CircularCollider from './circularCollider'
 	
 	}
 
+	update_delayed(t, dt) {
 
+    }
   
   repair(options){
     for (let key in options){
