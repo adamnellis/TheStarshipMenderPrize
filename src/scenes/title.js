@@ -10,21 +10,23 @@ export default class Title extends Scene {
         super('title')
     }
 
-    preload() {}
+    preload() {
+
+        this.load.image('test', require('../assets/title.png'));
+
+    }
 
     create() {
-        this.title = this.add.text(100, 100, 'Starship Menderprize', {
-            font: "bold 32px Arial",
-            fill: "#fff"
-        })
+
+        this.add.image(700, 432, 'test');
 
         this.title_button_small = new TextButton(
             this,
-            100,
-            200,
+            950,
+            700,
             'Start Game', {
-                font: "bold 32px Arial",
-                fill: '#0f0'
+                font: "bold 50px Arial",
+                fill: '#bb6c2e'
             },
             () => this.scene.start('game', {
                 // level: 1 - we can pass data from button to game.
