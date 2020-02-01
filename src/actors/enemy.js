@@ -1,9 +1,7 @@
-import {
-	GameObjects
-} from 'phaser'
 import config from './../config'
+import CircularColider from './circularColider'
 
-export default class Enemy extends GameObjects.Sprite {
+export default class Enemy extends CircularColider {
 	constructor(scene, player, x, y, image_name, rotation_rate, rotation_damping, rotation_angle) {
 		super(scene, x, y, "spaceRedux", image_name);
 		this.angle = Math.PI / 2;
