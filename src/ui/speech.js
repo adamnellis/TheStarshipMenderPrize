@@ -21,7 +21,7 @@ export default class Speech extends GameObjects.Container {
 				font: "bold 32px Arial",
 				fill: '#fff',
 				wordWrap: {
-					width: 1100,
+					width: 1000,
 					useAdvancedWrap: true
 				}
 			},
