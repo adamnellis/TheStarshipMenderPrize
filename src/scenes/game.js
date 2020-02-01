@@ -8,6 +8,7 @@ import Player from '../actors/player'
 import Bullets from "../actors/bullets"
 import Enemies from '../actors/enemies'
 import Speech from '../ui/speech'
+import Score from '../ui/score'
 
 const PHYSICS_FPS = 15;
 const physics_dt = 1000 / PHYSICS_FPS;
@@ -53,6 +54,8 @@ export default class Game extends Scene {
             () => this.scene.start('title')
         );
 
+        this.score = new Score(this)
+
         this.dt_accumulator = 0;
 
         this.bullets = new Bullets(this)
@@ -92,7 +95,10 @@ export default class Game extends Scene {
 			this.enemies.update_delayed(t, this.dt_accumulator);
             this.player.update_delayed(t, this.dt_accumulator);
             this.bullets.update_delayed(t, this.dt_accumulator);
-			this.dt_accumulator = 0;
+            this.dt_accumulator = 0;
+            
+            // FIXME: remove this when score captured elsewhere
+            this.score.increase(1)
 		}
 
 		this.enemies.update(t, dt);
