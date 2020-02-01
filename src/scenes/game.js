@@ -16,7 +16,9 @@ export default class Game extends Scene {
                 default: 'arcade',
                 arcade: {
                     debug: true,
-                    gravity: { y: 0 }
+                    gravity: {
+                        y: 0
+                    }
                 }
             },
             width: 800,
@@ -24,10 +26,10 @@ export default class Game extends Scene {
             key: 'game',
             type: Phaser.WEBGL,
         }
-       
+
         super(config);
 
-       
+
     }
 
     preload() {}
@@ -48,11 +50,11 @@ export default class Game extends Scene {
             () => this.scene.start('title')
         );
 
-  
+
 
         this.player = new Player(this)
         this.player.init()
-    
+
         this.enemies = new Enemies(this, this.player)
         this.enemies.spawn()
 

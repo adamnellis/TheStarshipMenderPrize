@@ -4,6 +4,7 @@ import {
 import Typewriter from './speechParts/typewriter'
 import Avatar from './speechParts/avatar'
 import IconButton from './speechParts/iconButton'
+import IconText from './speechParts/iconText'
 
 export default class Speech extends GameObjects.Container {
 	constructor(scene) {
@@ -41,54 +42,46 @@ export default class Speech extends GameObjects.Container {
 				this.addSelections()
 			})
 		})
-
-		// EXAMPLE: how to clear speech.
-		// this.scene.time.delayedCall(6000, () => {
-		// 	this.clear()
-		// });
-		// EXAMPLE: how to open speech.
-		// this.scene.time.delayedCall(10000, () => {
-		// 	this.open("This is a second piece of text")
-		// });
 	}
 
 	addSelections() {
-		this.scene.time.delayedCall(1000, () => {
+		this.addSelection(1000, 350, 500,
+			`
+			Bent Gun Barrel
+
+			Faster Reload
+			Skewed Accuracy
+			`
+		)
+		this.addSelection(1500, 750, 500,
+			`
+			Tank Repair
+
+			Slower Engines
+			Bigger Missiles
+			`
+		)
+		this.addSelection(2000, 1150, 500,
+			`
+			Mosquito Gun
+
+			Tiny, Fast Projectiles
+			Very Poor Accuracy
+			`
+		)
+	}
+
+	addSelection(delay, x, y, text) {
+		this.scene.time.delayedCall(delay, () => {
 			if (this.isOpen) {
-				super.add(new IconButton(
-					this.scene,
-					350,
-					500,
+				super.add(new IconButton(this.scene, x, y,
 					() => {
 						this.choice()
 					}
 				))
+				super.add(new IconText(this.scene, x, y, text))
 			}
-		});
-		this.scene.time.delayedCall(1500, () => {
-			if (this.isOpen) {
-				super.add(new IconButton(
-					this.scene,
-					750,
-					500,
-					() => {
-						this.choice()
-					}
-				))
-			}
-		});
-		this.scene.time.delayedCall(2000, () => {
-			if (this.isOpen) {
-				super.add(new IconButton(
-					this.scene,
-					1150,
-					500,
-					() => {
-						this.choice()
-					}
-				))
-			}
-		});
+		})
 	}
 
 	choice() {
@@ -97,12 +90,8 @@ export default class Speech extends GameObjects.Container {
 
 	clear() {
 		this.isOpen = false
-
-		console.log(this)
-
 		this.avatar.clear()
 		this.typewriter.clear()
 		this.removeAll(true)
-		console.log(this.list)
 	}
 }
