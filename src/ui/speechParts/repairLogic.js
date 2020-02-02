@@ -202,27 +202,33 @@ export default class RepairLogic {
 			//TODO: need different things
 			options = [{
 				text: `
-				Run Side Thrust Hot
+				Sunflower Protocol
 
-				Slow Speed
-				Crazy Turning
+				Crazy Accuracy
+				Great Fire Rate
 				`,
 				options: {
-					velocity: 200,
-					angularVelocity: 100000
+					bulletSpeed: 2,
+					shootRate: 400,
+					shootRandomDirectionMin: -3.1,
+					shootRandomDirectionMax: 3.1,
 				}
 			}]
 		} else if (performance >= 40){
 			//TODO: need different things
 			options = [{
 				text: `
-				Run Side Thrust Hot
+				Repurpose Guidance
 
-				Slow Speed
+				Moderate Speed
+				Crazy Accuracy
 				Crazy Turning
 				`,
 				options: {
-					velocity: 200,
+					velocity: 300,
+					bulletSpeed: -0.5,
+					shootRandomDirectionMin: -3.1,
+					shootRandomDirectionMax: 3.1,
 					angularVelocity: 100000
 				}
 			}]
@@ -230,13 +236,17 @@ export default class RepairLogic {
 			//TODO: need different things
 			options = [{
 				text: `
-				Run Side Thrust Hot
+				Release Anti-matter
 
-				Slow Speed
+				Crazy Speed
+				Crazy Accuracy
 				Crazy Turning
 				`,
 				options: {
-					velocity: 200,
+					velocity: 1500,
+					bulletSpeed: -0.5,
+					shootRandomDirectionMin: -3.1,
+					shootRandomDirectionMax: 3.1,
 					angularVelocity: 100000
 				}
 			}]
@@ -246,9 +256,6 @@ export default class RepairLogic {
 	}
 
 	pick(number) {
-		console.log("PICKED: " + number)
-		console.log(this.choices[number])
-
 		this.player.repair(this.choices[number].options)
 	}
 }
