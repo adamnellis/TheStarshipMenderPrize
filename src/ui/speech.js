@@ -22,7 +22,7 @@ export default class Speech extends GameObjects.Container {
 				font: "bold 32px Arial",
 				fill: '#fff',
 				wordWrap: {
-					width: 1000,
+					width: 900,
 					useAdvancedWrap: true
 				}
 			},
@@ -33,9 +33,11 @@ export default class Speech extends GameObjects.Container {
 		this.scene.add.existing(this)
 	}
 
-	open(text) {
+	open() {
 		this.isOpen = true
 		this.avatar.open()
+
+		let text = this.generateSpeech()
 
 		this.scene.time.delayedCall(this.avatar.duration, () => {
 			this.typewriter.write(text)
@@ -74,5 +76,70 @@ export default class Speech extends GameObjects.Container {
 		this.avatar.clear()
 		this.typewriter.clear()
 		this.removeAll(true)
+	}
+
+	generateSpeech(){
+		let recentDefecits = this.player.readAndClearRecentDefecits()
+		let most = null
+		let serious = []
+		let minor = []
+		let amount = Object.keys(recentDefecits).length
+		if (amount){
+			most = Object.keys(recentDefecits).reduce((a, b) => recentDefecits[a] > recentDefecits[b] ? a : b)
+		}
+		for (let deficit in recentDefecits){
+			let occurances = recentDefecits[deficit]
+			if (occurances >= 2){
+				serious.push(deficit)
+			} else {
+				minor.push(deficit)
+			}
+		}
+
+		let damageReport = this.generateDamageReport(most, serious, minor, amount)
+		let optionsReport = this.generateOptionsReport()
+
+		return damageReport + "\n\n\n" + 
+		`I managed to repair the flux capactior drive with our guns secondary heat sink pump. But what do we do with the hull?`+ "\n\n" +
+		optionsReport
+	}
+
+	generateDamageReport(most = null, serious = [], minor = [], amount = 0){
+		let options = []
+		if (most && (serious.length > 0) && (minor.length > 0)){
+			options = [
+				`Captain. We took a lot of damage. This badly impacted our ${most} and a lot of other systems.`,
+			]
+		} else if (most && (serious.length > 0) && (amount > 1)) {
+			options = [
+				`Captain. We took serious damage. This badly impacted our ${most} and a lot of other systems.`,
+			]
+		} else if (most && (serious.length > 0)) {
+			options = [
+				`Captain. We took serious damage and this has badly impacted our ${most}.`,
+			]
+		} else if (most && (minor.length > 0) && (amount > 1)) {
+			options = [
+				`Captain. We took minor damage. There was some impact to our ${most} and other systems.`,
+			]
+		} else if (most && (minor.length > 0)) {
+			options = [
+				`Captain. We took minor damage and this has slightly impacted our ${most}.`,
+			]
+		} else {
+			options = [
+				"Captain. Brilliant flying. We didn't take any damage there",
+				"Captain. No new damage to report."
+			]
+		}
+		return options[Math.floor(Math.random() * options.length)]
+	}
+	
+	generateOptionsReport(){
+		let options = [
+			"Pick ONE from the following options:"
+		]
+
+		return options[Math.floor(Math.random() * options.length)]
 	}
 }

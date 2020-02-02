@@ -98,14 +98,7 @@ export default class Game extends Scene {
 
             if (this.enemies.isAttacking && (this.enemies.list.length === 0)){
                 this.enemies.wait()
-                this.speech.open(
-                    `Captain, our hull is seriously damaged and we have little materials.
-    
-                    I managed to repair the flux capactior drive with our guns secondary heat sink pump. But what do we do with the hull?
-    
-    
-                    Pick ONE from the following options:`
-                )
+                this.speech.open()
 
                 //FIXME: when selected choice unwait enemies.
             }
