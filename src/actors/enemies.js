@@ -14,7 +14,6 @@ export default class Enemies extends GameObjects.Container {
 		this.player = player;
 		this.bullets = bullets;
 		this.collectibles = collectibles;
-		this.enemies = [];
 		this.isAttacking = false
 		this.level = 0
 
@@ -25,9 +24,6 @@ export default class Enemies extends GameObjects.Container {
 		this.level += 1
 
 		this.isAttacking = true
-		// this.enemies.push(new EnemyNormalRotatePlayer(this.scene, this.player, this.bullets, 750, 500, 'enemyBlack1.png'))
-		// this.enemies.push(new EnemySlowSpiral(this.scene, this.player, this.bullets, 600));
-
 
 		switch (this.level) {
 			case 1:
@@ -42,15 +38,17 @@ export default class Enemies extends GameObjects.Container {
 					super.add(new EnemyMoveDownScreen(this.scene, this.player, this.bullets, this.collectibles, "enemyRed1.png", x_pos));
 				}
 				break;
-		
+			case 3:
+				super.add(new EnemySlowSpiral(this.scene, this.player, this.bullets, this.collectibles, 0));
+				super.add(new EnemySlowSpiral(this.scene, this.player, this.bullets, this.collectibles, 1));
+				super.add(new EnemySlowSpiral(this.scene, this.player, this.bullets, this.collectibles, 2));
+				super.add(new EnemySlowSpiral(this.scene, this.player, this.bullets, this.collectibles, 3));
+				super.add(new EnemySlowSpiral(this.scene, this.player, this.bullets, this.collectibles, 4));
+				super.add(new EnemySlowSpiral(this.scene, this.player, this.bullets, this.collectibles, 5));
+				break;
 			default:
 				super.add(new EnemyFlyInToCentre(this.scene, this.player, this.bullets, this.collectibles));
 		}
-
-		// for(const enemy of this.enemies) {
-		// 	super.add(enemy);
-		// }
-		
 	}
 
 	update(t, dt) {
@@ -73,9 +71,9 @@ export default class Enemies extends GameObjects.Container {
 
 class EnemySlowSpiral extends EnemySpiral {
 
-	constructor(scene, player, bullets, y_line) {
+	constructor(scene, player, bullets, collectibles, delay) {
 
-		super(scene, player, bullets, y_line, 'enemyRed3.png', 1 / 3000, 150, 150)
+		super(scene, player, bullets, collectibles, 300, 'enemyRed3.png', 1 / 1000, 150, 150, delay)
 
 	}
 
