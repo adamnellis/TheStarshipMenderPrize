@@ -7,11 +7,11 @@ export default class EnemySpiral extends EnemyMoveFunction {
 	/**
 	 * An enemy type that moves in a spiral across the screen.
 	 */
-	constructor(scene, player, bullets, collectibles, y_line, image_name, movement_speed= 1/1000, spiral_height = 100, spiral_width = 100, delay = 0) {
+	constructor(scene, player, bullets, collectibles, y_line, image_name, movement_speed= 1/1000, spiral_height = 100, spiral_width = 100, delay = 0, shoot_speed = 2, health = 100) {
 		/**
 		 * delay: in seconds
 		 */
-		super(scene, player, bullets, collectibles, image_name, ROTATION_ANGLE);
+		super(scene, player, bullets, collectibles, image_name, ROTATION_ANGLE, shoot_speed, health);
 		this.y_line = y_line;
 		this.movement_speed = movement_speed;
 		this.spiral_width = spiral_width;

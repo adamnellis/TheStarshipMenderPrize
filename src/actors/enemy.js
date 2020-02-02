@@ -4,7 +4,7 @@ import CircularCollider from './circularCollider'
 import Collectable from "./collectable";
 
 export default class Enemy extends CircularCollider {
-	constructor(scene, player, bullets, collectibles, x, y, image_name, rotation_angle, rotation_rate, rotation_damping, shoot_speed = 2) {
+	constructor(scene, player, bullets, collectibles, x, y, image_name, rotation_angle, rotation_rate, rotation_damping, shoot_speed = 2, health = 100) {
 		/**
 		 * shoot_speed: units are shots per second
 		 */
@@ -31,7 +31,7 @@ export default class Enemy extends CircularCollider {
 
 		this.shooting_delay = 0; // time units before we can shoot again
 
-		this.health = 100
+		this.health = health;
 		this.dying = false
 
 		//Number of times to flash
@@ -77,7 +77,7 @@ export default class Enemy extends CircularCollider {
 			this.shooting_delay = 1000 / this.shoot_speed;
 
 			// Create a bullet moving in the direction that the enemy is pointing
-			const bullet = new Bullet(this.scene, this.x, this.y, -Math.sin(this.rotation), Math.cos(this.rotation));
+			const bullet = new Bullet(this.scene, this.x, this.y, -Math.sin(this.rotation), Math.cos(this.rotation), "laserRed01.png");
 			this.bullets.add(bullet);
 		}
 	}
