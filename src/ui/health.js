@@ -22,10 +22,20 @@ export default class Health extends Phaser.GameObjects.Text {
 	reduce(damage){
         this.health -= damage
 
-        this.setText("Damage: " + (100 - this.health) + "%")
+        this.setMe();
 
         if(this.health <= 0){
             this.scene.endGame()
         }
-	}
+    }
+    
+    clear() {
+        this.health = STARTING_HEALTH;
+        this.setMe();
+    }
+
+    setMe() {
+        this.setText("Damage: " + (100 - this.health) + "%")
+
+    }
 }

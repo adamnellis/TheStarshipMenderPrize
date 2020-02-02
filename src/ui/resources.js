@@ -16,14 +16,22 @@ export default class Resources extends Phaser.GameObjects.Text {
         this.setDepth(3)
 
         scene.add.existing(this)
-	}
+    }
+    
+    setMe(){
+        this.setText(this.resources + " :Resources")
+    }
 	
 	increase(resources = 1){
         this.resources += resources
-		this.setText(this.resources + " :Resources")
+		this.setMe();
     }
     
     clear(){
         this.resources = 0
+        this.setMe();
     }
+
+   
+    
 }
