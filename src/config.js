@@ -10,7 +10,7 @@ import {
 export default {
     width: 1500,
     height: 900,
-    backgroundColor: 'rgba(0, 0, 0)',
+    backgroundColor: 'rgba(0, 21, 64)',
     scene: [Boot, Preload, Title, Game, GameOver],
     scale: {
         mode: Scale.FIT,

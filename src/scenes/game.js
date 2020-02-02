@@ -43,8 +43,43 @@ export default class Game extends Scene {
         })
     }
 
+    randomInt(min, max){
+         return Math.floor(Math.random() * max) + min
+    }
+
+    generateLevelBackground(){
+
+        const numStars = this.randomInt(10, 100)
+
+        for(let i=0; i<numStars; i++){
+
+            const x = this.randomInt(0, 1500)
+            const y = this.randomInt(0, 900)
+
+            this.add.image(x, y, "star");
+        }
+
+        const numGalaxies = this.randomInt(2, 5)
+        const galaxyImages = ["galaxy", "galaxy2", "galaxy3", "galaxy4", "galaxy5"]
+
+        for(let i=0; i<numGalaxies; i++){
+
+            const x = this.randomInt(0, 1500)
+            const y = this.randomInt(0, 900)
+            const galaxyImage = galaxyImages[this.randomInt(0, 5)]
+
+            let galaxy = this.add.image(x, y, galaxyImage);
+            galaxy.angle = this.randomInt(0, 180)
+        }
+
+
+
+    }
+
     create(data) {
         // data is passed from button
+
+        this.generateLevelBackground()
 
         this.physics.world.setBoundsCollision(true, true, true, true);
 
