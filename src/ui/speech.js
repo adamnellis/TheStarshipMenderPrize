@@ -74,13 +74,13 @@ export default class Speech extends GameObjects.Container {
 			let icon;
 			switch (number) {
 				case 0:
-					icon = 'arrowLeft';
+					icon = 'a';
 					break;
 				case 1:
-					icon = 'arrowUp';
+					icon = 'w';
 					break;
 				default:
-					icon = 'arrowRight';
+					icon = 'd';
 					break;
 			}
 
