@@ -12,6 +12,10 @@ export default class EnemyMoveFunction extends Enemy {
 
 	update(t, dt) {
 		super.update(t, dt);
+		if (this.dying) {
+			return;
+		}
+		
 		this.time += dt;
 		this.x = this.position_function_x(this.time);
 		this.y = this.position_function_y(this.time);

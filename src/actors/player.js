@@ -31,9 +31,13 @@ import Bullet from './bullet'
     this.shootRate = 200;
     this.bulletDirectionModifier = 1;  // radians * this. 1 is straight. 
     this.bulletSpeed = 1; // 2 would give 2x speed; -1 would be shoot backwards
-    this.shootRandomDirectionMax = 1;
 
-
+    //Examples - between -Math.PI / 2 and 0 will shoot between left and straight
+    //Examples - between 0 and Math.PI / 2 will shoot between right and straight
+    //Examples - between -Math.PI / 2 and Math.PI / 2 will shoot between right and left
+    this.shootRandomDirectionMin = 0;
+    this.shootRandomDirectionMax = 0;
+    
     this.setCollideWorldBounds(true);
     
   }
@@ -42,17 +46,12 @@ import Bullet from './bullet'
 
   shoot() {    
 
-    const randomModifier =  Math.random() * (this.shootRandomDirectionMax) + 1;
-
+    const randomModifier =  Math.random() * (this.shootRandomDirectionMin - this.shootRandomDirectionMax) + this.shootRandomDirectionMax;
     // const x = this.x +  Math.sin(this.rotation) * this.height/2  ;
     // const y = this.y -  Math.cos(this.rotation) * this.height/2 ;   
 
-
-    const x_velocity = Math.sin(this.rotation *  this.bulletDirectionModifier ) * this.bulletSpeed;
-    const y_velocity = -Math.cos(this.rotation *  this.bulletDirectionModifier) * this.bulletSpeed;
-
-
-
+    const x_velocity = Math.sin(this.rotation *  this.bulletDirectionModifier  + randomModifier ) * this.bulletSpeed;
+    const y_velocity = -Math.cos(this.rotation *  this.bulletDirectionModifier  + randomModifier) * this.bulletSpeed;
 
     // Create a bullet moving in the direction that the ship is pointing
 		const bullet = new Bullet(this.scene, this.x, this.y, x_velocity, y_velocity, "laserBlue01.png", this.bulletDamage);
