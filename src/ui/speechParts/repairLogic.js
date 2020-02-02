@@ -10,7 +10,7 @@ export default class RepairLogic {
 		return this.choices.map(o => o.text)
 	}
 
-	generateMobility(){
+	generateMobility(performance){
 		let options = []
 		if (performance >= 95){
 			options = [{
@@ -133,21 +133,21 @@ export default class RepairLogic {
 		return options[Math.floor(Math.random() * options.length)]
 	}
 
-	generateWeapon(){
+	generateWeapon(performance){
 		let options = []
 		if (performance >= 95){
 			//TODO: need different things
 			options = [{
 				text: `
-				Install Cannoniser
+				Clean Projectiles
 
-				Great Accuracy
+				Great Accuracy 
 				Great Fire Rate
 				`,
 				options: {
 					bulletDamage: 100,
 					bulletPicture: 'laserBlue01.png',
-					shootRate: 300,
+					shootRate: 150,
 					bulletDirectionModifier: 1,
 					bulletSpeed: 1,
 					shootRandomDirectionMin: 0,
@@ -184,7 +184,7 @@ export default class RepairLogic {
 				options: {
 					bulletDamage: 100,
 					bulletPicture: 'laserBlue01.png',
-					shootRate: 50,
+					shootRate: 400,
 					bulletDirectionModifier: 1,
 					bulletSpeed: 1,
 					shootRandomDirectionMin: 0,
@@ -198,7 +198,7 @@ export default class RepairLogic {
 	generateTradeoff(performance){
 		let options = []
 
-		if (performance >= 95){
+		if (performance >= 111){
 			//TODO: need different things
 			options = [{
 				text: `
@@ -209,7 +209,7 @@ export default class RepairLogic {
 				`,
 				options: {
 					bulletSpeed: 2,
-					shootRate: 400,
+					shootRate: 100,
 					shootRandomDirectionMin: -3.1,
 					shootRandomDirectionMax: 3.1,
 				}

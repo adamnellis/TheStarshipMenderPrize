@@ -154,6 +154,18 @@ export default class Game extends Scene {
 
                 //FIXME: when selected choice unwait enemies.
             }
+
+       
+
+            // Commented out for production - uncomment for development
+            // Cheats for testing
+            // if (this.keys.k.isDown) {
+            //     // K key kills all enemies
+            //     for(const enemy of this.enemies.list) {
+            //         enemy.damage(10000);
+            //     }
+            // }
+
 		}
 
 		this.enemies.update(t, dt);

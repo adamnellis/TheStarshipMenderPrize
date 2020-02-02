@@ -136,6 +136,7 @@ export default class Speech extends GameObjects.Container {
 		if (most && (serious.length > 0) && (minor.length > 0)){
 			options = [
 				`Captain. We took a lot of damage. This badly impacted our ${most} and a lot of other systems.`,
+				`Captain. That wave was brutal. The damage has seriously impacted our ${most} and many other systems.`,
 			]
 		} else if (most && (serious.length > 0) && (amount > 1)) {
 			options = [
@@ -156,7 +157,10 @@ export default class Speech extends GameObjects.Container {
 		} else {
 			options = [
 				"Captain. Brilliant flying. We didn't take any damage!",
-				"Captain. No new damage to report."
+				"Captain. No new damage to report.",
+				"Captain. That was a masterclass you put on. No new damage to report.",
+				"Captain. That flying was incredible we sustained no new damage.",
+				"Captain. No Damage to report.",
 			]
 		}
 		return options[Math.floor(Math.random() * options.length)]
@@ -165,7 +169,7 @@ export default class Speech extends GameObjects.Container {
 	generateActivityReport(health = 100, resources = 50){
 		let options = []
 		
-		if (resources > health){ // GOOD
+		if ((resources >= 1) && (((resources*10) + health) > 100)){ // GOOD
 			if (health >= 70){ // VERY GOOD
 				options = [
 					"I have got plenty of spare materials. What should I work on next?"
