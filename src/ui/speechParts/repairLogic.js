@@ -139,9 +139,9 @@ export default class RepairLogic {
 			//TODO: need different things
 			options = [{
 				text: `
-				Install Cannoniser
+				Clean Projectiles
 
-				Great Accuracy
+				Great Accuracy 
 				Great Fire Rate
 				`,
 				options: {
@@ -198,7 +198,7 @@ export default class RepairLogic {
 	generateTradeoff(performance){
 		let options = []
 
-		if (performance >= 95){
+		if (performance >= 111){
 			//TODO: need different things
 			options = [{
 				text: `
