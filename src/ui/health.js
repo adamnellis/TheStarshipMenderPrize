@@ -3,7 +3,7 @@ const STARTING_HEALTH = 100
 export default class Health extends Phaser.GameObjects.Text {	
 	constructor(scene) {
         super(scene, 800, 820,
-            "Health: " + STARTING_HEALTH, {
+            "Damage: " + (100 - STARTING_HEALTH) + "%", {
                 font: "bold 32px Arial",
                 fill: '#fff',
                 align: 'left',
@@ -21,7 +21,7 @@ export default class Health extends Phaser.GameObjects.Text {
 	reduce(damage){
         this.health -= damage
 
-        this.setText("Health: " + this.health)
+        this.setText("Damage: " + (100 - this.health) + "%")
 
         if(this.health <= 0){
             this.scene.endGame()
