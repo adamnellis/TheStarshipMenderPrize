@@ -1,7 +1,7 @@
 export default class Resources extends Phaser.GameObjects.Text {	
 	constructor(scene) {
         super(scene, 700, 820,
-            "0 :Resources", {
+            "Resources: 0", {
                 font: "bold 32px Arial",
                 fill: '#fff',
                 align: 'right',
@@ -19,7 +19,7 @@ export default class Resources extends Phaser.GameObjects.Text {
     }
     
     setMe(){
-        this.setText(this.resources + " :Resources")
+        this.setText("Resources: " + this.resources)
     }
 	
 	increase(resources = 1){

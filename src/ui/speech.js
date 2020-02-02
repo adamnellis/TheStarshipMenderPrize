@@ -202,7 +202,7 @@ export default class Speech extends GameObjects.Container {
 
 	generateOptionsReport(){
 		let options = [
-			"Use ARROW keys tp pick ONE from the following options:"
+			"Use ARROW keys to pick ONE from the following options:"
 		]
 
 		return options[Math.floor(Math.random() * options.length)]
