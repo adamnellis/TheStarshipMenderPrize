@@ -15,7 +15,7 @@ import Collectibles from "../actors/collectibles";
 
 const PHYSICS_FPS = 15;
 const physics_dt = 1000 / PHYSICS_FPS;
-const SHIP_HIT_DAMAGE = 50;
+const SHIP_HIT_DAMAGE = 30;
 const NEW_LEVEL_TIME_OUT = 1000;
 
 const SCORE_SHOT = 50;
