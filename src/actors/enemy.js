@@ -39,6 +39,10 @@ export default class Enemy extends CircularCollider {
 	}
 
 	update(t, dt) {
+		if (this.dying) {
+			return;
+		}
+
 		// Integrate motion
 		this.physics_angle += this.angular_rotation * dt;
 		this.x += this.velocity_x * dt;
@@ -53,6 +57,9 @@ export default class Enemy extends CircularCollider {
 	}
 
 	update_delayed(t, dt) {
+		if (this.dying) {
+			return;
+		}
 
 		// Destroy enemies when they move off the screen
 		if (this.x < -config.width || this.x > 2 * config.width || this.y < -config.height || this.y > 2 * config.height) {
@@ -60,9 +67,7 @@ export default class Enemy extends CircularCollider {
 			return
 		}
 
-		if(this.dying == false){
-			this.shoot();
-		}
+		this.shoot();
 	}
 
 	shoot() {
