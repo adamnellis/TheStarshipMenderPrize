@@ -4,10 +4,14 @@ import CircularCollider from './circularCollider'
 import Collectable from "./collectable";
 
 export default class Enemy extends CircularCollider {
-	constructor(scene, player, bullets, x, y, image_name, rotation_angle, rotation_rate, rotation_damping) {
+	constructor(scene, player, bullets, x, y, image_name, rotation_angle, rotation_rate, rotation_damping, shoot_speed = 2) {
+		/**
+		 * shoot_speed: units are shots per second
+		 */
 		super(scene, x, y, "spaceRedux", image_name);
 		this.bullets = bullets;
 		this.rotation_angle = rotation_angle;
+		this.shoot_speed = shoot_speed;
 
 		// this.setOrigin(0, 0);
 		this.player = player;
@@ -24,6 +28,8 @@ export default class Enemy extends CircularCollider {
 		this.velocity_x = 0;
 		this.velocity_y = 0;
 
+		this.shooting_delay = 0; // time units before we can shoot again
+
 		this.health = 100
 		this.dying = false
 
@@ -34,6 +40,10 @@ export default class Enemy extends CircularCollider {
 	}
 
 	update(t, dt) {
+		if (this.dying) {
+			return;
+		}
+
 		// Integrate motion
 		this.physics_angle += this.angular_rotation * dt;
 		this.x += this.velocity_x * dt;
@@ -43,9 +53,14 @@ export default class Enemy extends CircularCollider {
 		this.velocity_y += this.force_y * dt;
 		// Set rotation on shape
 		this.rotation = this.physics_angle + this.rotation_angle;
+
+		this.shooting_delay -= dt;
 	}
 
 	update_delayed(t, dt) {
+		if (this.dying) {
+			return;
+		}
 
 		// Destroy enemies when they move off the screen
 		if (this.x < -config.width || this.x > 2 * config.width || this.y < -config.height || this.y > 2 * config.height) {
@@ -53,15 +68,17 @@ export default class Enemy extends CircularCollider {
 			return
 		}
 
-		if(this.dying == false){
-			this.shoot();
-		}
+		this.shoot();
 	}
 
 	shoot() {
-		// Create a bullet moving in the direction that the enemy is pointing
-		const bullet = new Bullet(this.scene, this.x, this.y, -Math.sin(this.rotation), Math.cos(this.rotation));
-		this.bullets.add(bullet);
+		if (this.shooting_delay <= 0) {
+			this.shooting_delay = 1000 / this.shoot_speed;
+
+			// Create a bullet moving in the direction that the enemy is pointing
+			const bullet = new Bullet(this.scene, this.x, this.y, -Math.sin(this.rotation), Math.cos(this.rotation));
+			this.bullets.add(bullet);
+		}
 	}
 
 	damage(damage_dealt){

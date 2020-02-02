@@ -93,7 +93,7 @@ class EnemyFlyInToCentre extends EnemyMovePointToPoint {
 		const start_x = radius * Math.cos(angle) + config.width / 2;
 		const start_y = radius * Math.sin(angle) + config.height / 2;
 
-		super(scene, player, bullets, start_x, start_y, config.width / 2, config.height / 2, 'enemyBlack1.png', -Math.PI / 2)
+		super(scene, player, bullets, start_x, start_y, config.width / 2, config.height / 2, 'enemyBlack1.png', -Math.PI / 2, 4)
 
 	}
 }
