@@ -10,6 +10,7 @@ export default class Status extends Phaser.GameObjects.Text {
                     useAdvancedWrap: true
                 }
 			}).setOrigin(0, 0)
+		this.setDepth(1000)
 
 		scene.time.delayedCall(4000, () => {
 			if(this){

@@ -1,6 +1,7 @@
 export class TextButton extends Phaser.GameObjects.Text {
     constructor(scene, x, y, text, style, callback) {
         super(scene, x, y, text, style);
+        this.setDepth(3)
 
         this.setInteractive({
                 useHandCursor: true
