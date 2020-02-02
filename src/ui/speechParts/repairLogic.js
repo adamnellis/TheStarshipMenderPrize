@@ -21,8 +21,8 @@ export default class RepairLogic {
 				Great Turning
 				`,
 				options: {
-					velocity: 500,
-					angularVelocity: 800
+					velocity: 650,
+					angularVelocity: 500
 				}
 			}]
 		} else if (performance >= 140){
@@ -35,8 +35,8 @@ export default class RepairLogic {
 				Great Turning
 				`,
 				options: {
-					velocity: 500,
-					angularVelocity: 800
+					velocity: 650,
+					angularVelocity: 500
 				}
 			}]
 		} else if (performance >= 90){
@@ -49,8 +49,8 @@ export default class RepairLogic {
 				Great Turning
 				`,
 				options: {
-					velocity: 500,
-					angularVelocity: 800
+					velocity: 650,
+					angularVelocity: 500
 				}
 			}]
 		} else if (performance >= 40){
@@ -63,8 +63,8 @@ export default class RepairLogic {
 				Great Turning
 				`,
 				options: {
-					velocity: 500,
-					angularVelocity: 800
+					velocity: 650,
+					angularVelocity: 500
 				}
 			}]
 		} else {
@@ -77,8 +77,8 @@ export default class RepairLogic {
 				Great Turning
 				`,
 				options: {
-					velocity: 500,
-					angularVelocity: 800
+					velocity: 650,
+					angularVelocity: 500
 				}
 			}]
 		}
