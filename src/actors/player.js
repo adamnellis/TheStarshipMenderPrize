@@ -19,6 +19,9 @@ import Bullet from './bullet'
     this.velocity = 300;
     this.acceleration = 50;
     this.drag = 50; 
+
+    this.recentDefecits = []
+
     this.setDrag(this.drag, this.drag)
 
     //Gun modifiers
@@ -141,11 +144,26 @@ import Bullet from './bullet'
     switch(Math.floor(Math.random() * 2)){
       case 1:
         this.velocity *= 0.8
+        this.recentDefecits.push("speed")
         return "- Speed"
       default:
         this.angularVelocity *= 0.8
+        this.recentDefecits.push("turning")
         return "- Turning"
     }
+  }
+
+  readAndClearRecentDefecits(){
+    let local = []
+    for (let item of this.recentDefecits){
+      if (local[item]){
+        local[item] += 1
+      } else{
+        local[item] = 1
+      }
+    }
+    this.recentDefecits = []
+    return local
   }
 
   getXPosition() {
