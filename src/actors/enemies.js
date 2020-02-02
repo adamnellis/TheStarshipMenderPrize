@@ -35,10 +35,18 @@ export default class Enemies extends GameObjects.Container {
 				const step_size = config.width / (num_enemies + 1);
 				for (let i = 0; i < num_enemies; i++) {
 					const x_pos = (i + 1) * step_size;
-					super.add(new EnemyMoveDownScreen(this.scene, this.player, this.bullets, this.collectibles, "enemyRed1.png", x_pos));
+					super.add(new EnemyMoveDownScreenSimple(this.scene, this.player, this.bullets, this.collectibles, "enemyRed1.png", x_pos, 100));
 				}
 				break;
 			case 3:
+				const num_enemies2 = 6;
+				const step_size2 = config.width / (num_enemies2 + 1);
+				for (let i = 0; i < num_enemies2; i++) {
+					const x_pos2 = (i + 1) * step_size2;
+					super.add(new EnemyMoveDownScreenSimple(this.scene, this.player, this.bullets, this.collectibles, "enemyRed2.png", x_pos2, 200));
+				}
+				break;
+			case 4:
 				super.add(new EnemySlowSpiral(this.scene, this.player, this.bullets, this.collectibles, 0));
 				super.add(new EnemySlowSpiral(this.scene, this.player, this.bullets, this.collectibles, 1));
 				super.add(new EnemySlowSpiral(this.scene, this.player, this.bullets, this.collectibles, 2));
@@ -79,14 +87,13 @@ class EnemySlowSpiral extends EnemySpiral {
 
 }
 
-class EnemyNormalRotatePlayer extends EnemyRotatePlayer{
+class EnemyMoveDownScreenSimple extends EnemyMoveDownScreen {
 
-	constructor(scene, player, bullets, x, y) {
+	constructor(scene, player, bullets, collectibles, image_name, x_start, health) {
 
-		super(scene, player, bullets, x, y, 'enemyBlack2.png', -Math.PI / 2)
+		super(scene, player, bullets, collectibles, image_name, x_start, 3, 100, 200, 500, 2, health);
 
 	}
-
 
 }
 
