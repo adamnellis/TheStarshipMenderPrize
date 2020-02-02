@@ -32,11 +32,11 @@ export default class Enemies extends GameObjects.Container {
 			const step_size = config.width / (num_enemies + 1);
 			for (let i = 0; i < num_enemies; i++) {
 				const x_pos = (i + 1) * step_size;
-				super.add(new EnemyMoveDownScreen(this.scene, this.player, this.bullets, "enemyRed1.png", x_pos));
+				super.add(new EnemyMoveDownScreen(this.scene, this.player, this.bullets, this.collectibles, "enemyRed1.png", x_pos));
 			}
 		}
 		else {
-			super.add(new EnemyFlyInToCentre(this.scene, this.player, this.bullets));
+			super.add(new EnemyFlyInToCentre(this.scene, this.player, this.bullets, this.collectibles));
 		}
 
 		// for(const enemy of this.enemies) {
@@ -85,7 +85,7 @@ class EnemyNormalRotatePlayer extends EnemyRotatePlayer{
 
 class EnemyFlyInToCentre extends EnemyMovePointToPoint {
 
-	constructor(scene, player, bullets) {
+	constructor(scene, player, bullets, collectibles) {
 
 		// Randomly choose start x & y
 		const angle = Math.random() * 2 * Math.PI;
@@ -93,7 +93,7 @@ class EnemyFlyInToCentre extends EnemyMovePointToPoint {
 		const start_x = radius * Math.cos(angle) + config.width / 2;
 		const start_y = radius * Math.sin(angle) + config.height / 2;
 
-		super(scene, player, bullets, start_x, start_y, config.width / 2, config.height / 2, 'enemyBlack1.png', -Math.PI / 2, 4)
+		super(scene, player, bullets, collectibles, start_x, start_y, config.width / 2, config.height / 2, 'enemyBlack1.png', -Math.PI / 2, 4)
 
 	}
 }

@@ -108,6 +108,13 @@ export default class Game extends Scene {
 
             if (this.enemies.isAttacking && (this.enemies.list.length === 0)){
                 this.enemies.wait()
+
+                const collectiblesCopy = this.collectibles.list.slice()
+
+                for(let collectable of collectiblesCopy){
+                    collectable.pickup()
+                }
+
                 this.speech.open()
 
                 //FIXME: when selected choice unwait enemies.

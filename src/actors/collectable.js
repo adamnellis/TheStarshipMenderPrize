@@ -6,7 +6,7 @@ export default class Collectable extends Phaser.Physics.Arcade.Sprite {
 	}
 
 	pickup(){
-		this.destroy
+		this.destroy()
 	}
 
 }

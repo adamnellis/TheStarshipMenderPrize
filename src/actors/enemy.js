@@ -4,12 +4,13 @@ import CircularCollider from './circularCollider'
 import Collectable from "./collectable";
 
 export default class Enemy extends CircularCollider {
-	constructor(scene, player, bullets, x, y, image_name, rotation_angle, rotation_rate, rotation_damping, shoot_speed = 2) {
+	constructor(scene, player, bullets, collectibles, x, y, image_name, rotation_angle, rotation_rate, rotation_damping, shoot_speed = 2) {
 		/**
 		 * shoot_speed: units are shots per second
 		 */
 		super(scene, x, y, "spaceRedux", image_name);
 		this.bullets = bullets;
+		this.collectibles = collectibles;
 		this.rotation_angle = rotation_angle;
 		this.shoot_speed = shoot_speed;
 
@@ -119,7 +120,7 @@ export default class Enemy extends CircularCollider {
 
 		//Deposit resource
 		const repair = new Collectable(this.scene, this.x, this.y, "repair")
-		this.scene.add.existing(repair)
+		this.collectibles.add(repair)
 
 		//Kill this ship
 		this.destroy();
