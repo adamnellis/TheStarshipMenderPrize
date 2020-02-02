@@ -1,6 +1,7 @@
 import CircularCollider from './circularCollider'
 import Health from '../ui/health.js'
 import Resources from '../ui/resources.js'
+import Status from './player_status'
 
  export default class player extends CircularCollider {
  	constructor(scene) {
@@ -78,7 +79,11 @@ import Resources from '../ui/resources.js'
 
     damage(damage) {
       this.health.reduce(damage);
-     
+
+      // TODO: work out negative affect from damage!
+      // this.velocity -= 50
+
+      this.scene.add.existing(new Status(this.scene, this.x, this.y, "Damage Type"))
     }
   
   repair(options){
