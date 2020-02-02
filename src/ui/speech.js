@@ -165,7 +165,7 @@ export default class Speech extends GameObjects.Container {
 	generateActivityReport(health = 100, resources = 50){
 		let options = []
 		
-		if (resources > health){ // GOOD
+		if ((resources >= 1) && (((resources*10) + health) > 100)){ // GOOD
 			if (health >= 70){ // VERY GOOD
 				options = [
 					"I have got plenty of spare materials. What should I work on next?"

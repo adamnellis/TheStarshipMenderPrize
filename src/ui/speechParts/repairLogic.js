@@ -10,7 +10,7 @@ export default class RepairLogic {
 		return this.choices.map(o => o.text)
 	}
 
-	generateMobility(){
+	generateMobility(performance){
 		let options = []
 		if (performance >= 95){
 			options = [{
@@ -133,7 +133,7 @@ export default class RepairLogic {
 		return options[Math.floor(Math.random() * options.length)]
 	}
 
-	generateWeapon(){
+	generateWeapon(performance){
 		let options = []
 		if (performance >= 95){
 			//TODO: need different things
