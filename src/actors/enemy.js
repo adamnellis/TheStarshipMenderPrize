@@ -135,7 +135,8 @@ export default class Enemy extends CircularCollider {
 
 	injured_flash_animation(){
 		this.clearTint()
-		this.scene.time.delayedCall(200,()=>{if(this.injured_animation){this.injured_animation()}})
+		if (this.scene.time)
+		{this.scene.time.delayedCall(200,()=>{if(this.injured_animation){this.injured_animation()}})}
 	}
 
 	die(){
