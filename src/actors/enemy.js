@@ -58,19 +58,9 @@ export default class Enemy extends CircularCollider {
 	}
 
 	shoot() {
-
-
-		const shipShot = (ship, bullet) => {
-			ship.damage(bullet.damage);
-			bullet.destroy();
-		}
-
-
 		// Create a bullet moving in the direction that the enemy is pointing
 		const bullet = new Bullet(this.scene, this.x, this.y, -Math.sin(this.rotation), Math.cos(this.rotation));
 		this.bullets.add(bullet);
-
-		this.scene.physics.add.collider(this.player, bullet, shipShot);
 	}
 
 	damage(damage_dealt){
@@ -78,11 +68,10 @@ export default class Enemy extends CircularCollider {
 		this.health = this.health - damage_dealt
 
 		if(this.health <= 0 && this.dying==false){
-
+				//Turn physics off
+			this.scene.physics.world.disable(this)
 			this.dying = true
-			//Turn physics off
-			this.body.enable = false
-
+		
 			this.death_animation()
 
 		}
