@@ -80,7 +80,7 @@ export default class Game extends Scene {
 			bullet.destroy();
 		}
 
-        this.physics.add.collider(this.player, this.enemies.enemies, collideShips);
+        this.physics.add.collider(this.player, this.enemies.list, collideShips);
         this.physics.add.collider(this.player,  this.bullets.list, shipShot);
 
         this.speech = new Speech(this, this.player, this.enemies)
