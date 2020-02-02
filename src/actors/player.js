@@ -16,6 +16,8 @@ import Status from './player_status'
     this.acceleration = 50;
     this.drag = 50; 
 
+    this.setOrigin(0.5,0.5)
+
     this.setCollideWorldBounds(true);
     this.setDrag(this.drag, this.drag)
 
