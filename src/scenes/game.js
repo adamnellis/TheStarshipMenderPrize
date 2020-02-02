@@ -9,6 +9,7 @@ import Bullets from "../actors/bullets"
 import Enemies from '../actors/enemies'
 import Speech from '../ui/speech'
 import Score from '../ui/score'
+import PlayerBullets from '../actors/playerBullets'
 
 const PHYSICS_FPS = 15;
 const physics_dt = 1000 / PHYSICS_FPS;
@@ -43,8 +44,43 @@ export default class Game extends Scene {
         })
     }
 
+    randomInt(min, max){
+         return Math.floor(Math.random() * max) + min
+    }
+
+    generateLevelBackground(){
+
+        const numStars = this.randomInt(10, 100)
+
+        for(let i=0; i<numStars; i++){
+
+            const x = this.randomInt(0, 1500)
+            const y = this.randomInt(0, 900)
+
+            this.add.image(x, y, "star");
+        }
+
+        const numGalaxies = this.randomInt(2, 5)
+        const galaxyImages = ["galaxy", "galaxy2", "galaxy3", "galaxy4", "galaxy5"]
+
+        for(let i=0; i<numGalaxies; i++){
+
+            const x = this.randomInt(0, 1500)
+            const y = this.randomInt(0, 900)
+            const galaxyImage = galaxyImages[this.randomInt(0, 5)]
+
+            let galaxy = this.add.image(x, y, galaxyImage);
+            galaxy.angle = this.randomInt(0, 180)
+        }
+
+
+
+    }
+
     create(data) {
         // data is passed from button
+
+        this.generateLevelBackground()
 
         this.physics.world.setBoundsCollision(true, true, true, true);
 
@@ -64,7 +100,8 @@ export default class Game extends Scene {
         this.dt_accumulator = 0;
 
         this.bullets = new Bullets(this)
-        this.player = new Player(this)
+        this.playerBullets = new PlayerBullets(this);
+        this.player = new Player(this, this.playerBullets)
 
         this.enemies = new Enemies(this, this.player, this.bullets)
         this.enemies.spawn()
@@ -73,15 +110,15 @@ export default class Game extends Scene {
             ship.damage(SHIP_HIT_DAMAGE);
             enemy.damage(100);
         }
-
         
 		const shipShot = (ship, bullet) => {
-			ship.damage(bullet.damage);
+            ship.damage(bullet.damage);
 			bullet.destroy();
-		}
+        }
 
         this.physics.add.collider(this.player, this.enemies.list, collideShips);
-        this.physics.add.collider(this.player,  this.bullets.list, shipShot);
+        this.physics.add.collider(this.player, this.bullets.list, shipShot);
+        this.physics.add.collider(this.enemies.list, this.playerBullets.list, shipShot);
 
         this.speech = new Speech(this, this.player, this.enemies)
 
@@ -94,6 +131,7 @@ export default class Game extends Scene {
 			this.enemies.update_delayed(t, this.dt_accumulator);
             this.player.update_delayed(t, this.dt_accumulator);
             this.bullets.update_delayed(t, this.dt_accumulator);
+            this.playerBullets.update_delayed(t, this.dt_accumulator);
             this.dt_accumulator = 0;
 
             if (this.enemies.isAttacking && (this.enemies.list.length === 0)){
@@ -118,5 +156,6 @@ export default class Game extends Scene {
 		this.enemies.update(t, dt);
         this.player.update(t, dt);
         this.bullets.update(t, dt);
+        this.playerBullets.update(t, dt);
     }
 }

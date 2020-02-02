@@ -7,7 +7,7 @@ export default class CircularCollider extends Collider {
     const size = (this.body.halfWidth + this.body.halfHeight) / 2
     const diff = (this.body.halfWidth - this.body.halfHeight) / 2
 
-    this.setOrigin(0.5, 0.5)
+     this.setOrigin(0.5, 0.5)
 
     if(diff > 0){
       this.body.setCircle(size, diff, 0);
