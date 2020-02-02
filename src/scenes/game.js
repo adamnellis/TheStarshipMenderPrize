@@ -105,6 +105,7 @@ export default class Game extends Scene {
 
             if (this.enemies.isAttacking && (this.enemies.list.length === 0)){
                 this.enemies.wait()
+                if(this.enemies.tutorial) this.enemies.tutorial.destroy();
                 this.speech.open()
 
                 //FIXME: when selected choice unwait enemies.

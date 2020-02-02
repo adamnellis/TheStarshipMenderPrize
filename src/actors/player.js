@@ -6,7 +6,7 @@ import Bullet from './bullet'
 
  export default class player extends CircularCollider {
  	constructor(scene, bullets) {
-    super(scene, 500, 200, "spaceRedux", "playerShip1_green.png")
+    super(scene, 500, 600, "spaceRedux", "playerShip1_green.png")
     this.health = new Health(scene)
     this.resources = new Resources(scene)
     this.scene.add.existing(this);
