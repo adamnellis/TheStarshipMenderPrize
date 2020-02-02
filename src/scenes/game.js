@@ -16,6 +16,12 @@ import Collectibles from "../actors/collectibles";
 const PHYSICS_FPS = 15;
 const physics_dt = 1000 / PHYSICS_FPS;
 const SHIP_HIT_DAMAGE = 50;
+const NEW_LEVEL_TIME_OUT = 1000;
+
+const SCORE_SHOT = 50;
+const SCORE_CRASH = 10;
+const SCORE_COLLECTED = 100;
+
 
 export default class Game extends Scene {
     constructor() {
@@ -68,6 +74,7 @@ export default class Game extends Scene {
         this.score = new Score(this)
 
         this.dt_accumulator = 0;
+        this.newLevelTimer = 0;
 
         this.bullets = new Bullets(this)
         this.playerBullets = new PlayerBullets(this);
@@ -80,22 +87,36 @@ export default class Game extends Scene {
 
         const collideShips = (ship, enemy) => {
             ship.damage(SHIP_HIT_DAMAGE);
-            this.score.increase(10)
+            this.score.increase(SCORE_CRASH)
             enemy.damage(100);
         }
         
 		const shipShot = (ship, bullet) => {
             if(this.ship != this.player) {
-                this.score.increase(50)
+                this.score.increase(SCORE_SHOT)
             }
           
             ship.damage(bullet.damage);
 			bullet.destroy();
         }
 
+        const destroyCollectable = (collectable) => {
+            collectable.destroy();
+        }
+
+        const collect = (ship, collectable) => {
+            this.score.increase(SCORE_COLLECTED)
+            ship.collect();
+            destroyCollectable(collectable);
+        }
+
+      
+
         this.physics.add.collider(this.player, this.enemies.list, collideShips);
         this.physics.add.collider(this.player, this.bullets.list, shipShot);
         this.physics.add.collider(this.enemies.list, this.playerBullets.list, shipShot);
+        this.physics.add.collider(this.player, this.collectibles.list, collect);
+        this.physics.add.collider( this.collectibles.list, this.enemies.list, destroyCollectable);
 
         this.speech = new Speech(this, this.player, this.enemies, this.background)
 
@@ -104,6 +125,9 @@ export default class Game extends Scene {
 
     update(t, dt) {
         this.dt_accumulator += dt;
+
+        
+
 		if (this.dt_accumulator > physics_dt) {
 			this.enemies.update_delayed(t, this.dt_accumulator);
             this.player.update_delayed(t, this.dt_accumulator);
@@ -112,16 +136,26 @@ export default class Game extends Scene {
             this.dt_accumulator = 0;
 
             if (this.enemies.isAttacking && (this.enemies.list.length === 0)){
-                this.enemies.wait()
+                
+                console.log(this.newLevelTimer)
 
-                if(this.enemies.tutorial) this.enemies.tutorial.destroy();
-                const collectiblesCopy = this.collectibles.list.slice()
+                this.newLevelTimer += dt;
 
-                for(let collectable of collectiblesCopy){
-                    collectable.pickup()
+                if (this.newLevelTimer > NEW_LEVEL_TIME_OUT) {
+
+                    this.newLevelTimer = 0;
+                    this.enemies.wait()
+
+                    if(this.enemies.tutorial) this.enemies.tutorial.destroy();
+                    const collectiblesCopy = this.collectibles.list.slice()
+
+                    for(let collectable of collectiblesCopy){
+                        collectable.pickup()
+                    }
+
+                    this.speech.open()
+
                 }
-
-                this.speech.open()
 
                 //FIXME: when selected choice unwait enemies.
             }

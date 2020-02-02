@@ -4,8 +4,8 @@ import Resources from '../ui/resources.js'
 import Status from './player_status'
 import Bullet from './bullet'
 
- export default class player extends CircularCollider {
- 	constructor(scene, bullets) {
+export default class player extends CircularCollider {
+  constructor(scene, bullets) {
     super(scene, 500, 600, "spaceRedux", "playerShip1_green.png")
     this.setDepth(999)
     this.health = new Health(scene)
@@ -14,12 +14,12 @@ import Bullet from './bullet'
     this.cursors = scene.input.keyboard.createCursorKeys();
     this.bullets = bullets;
     this.delta_accumulator = 0;
-    
+
     //Ship modifiers
     this.angularVelocity = 100;
     this.velocity = 300;
     this.acceleration = 50;
-    this.drag = 50; 
+    this.drag = 50;
 
     this.recentDefecits = []
 
@@ -37,28 +37,28 @@ import Bullet from './bullet'
     //Examples - between -Math.PI / 2 and Math.PI / 2 will shoot between right and left
     this.shootRandomDirectionMin = 0;
     this.shootRandomDirectionMax = 0;
-    
+
     this.setCollideWorldBounds(true);
-    
+
   }
 
 
 
-  shoot() {    
+  shoot() {
 
-    const randomModifier =  Math.random() * (this.shootRandomDirectionMin - this.shootRandomDirectionMax) + this.shootRandomDirectionMax;
+    const randomModifier = Math.random() * (this.shootRandomDirectionMin - this.shootRandomDirectionMax) + this.shootRandomDirectionMax;
     // const x = this.x +  Math.sin(this.rotation) * this.height/2  ;
     // const y = this.y -  Math.cos(this.rotation) * this.height/2 ;   
 
-    const x_velocity = Math.sin(this.rotation *  this.bulletDirectionModifier  + randomModifier ) * this.bulletSpeed;
-    const y_velocity = -Math.cos(this.rotation *  this.bulletDirectionModifier  + randomModifier) * this.bulletSpeed;
+    const x_velocity = Math.sin(this.rotation * this.bulletDirectionModifier + randomModifier) * this.bulletSpeed;
+    const y_velocity = -Math.cos(this.rotation * this.bulletDirectionModifier + randomModifier) * this.bulletSpeed;
 
     // Create a bullet moving in the direction that the ship is pointing
-		const bullet = new Bullet(this.scene, this.x, this.y, x_velocity, y_velocity, "laserBlue01.png", this.bulletDamage);
+    const bullet = new Bullet(this.scene, this.x, this.y, x_velocity, y_velocity, "laserBlue01.png", this.bulletDamage);
     this.bullets.add(bullet);
-	}
-    
-    move(forward) {
+  }
+
+  move(forward) {
     const direction = forward ? 1 : -0.5;
 
     // * UP 0, DOWN -180, RIGHT 90, LEFT -90
@@ -73,69 +73,67 @@ import Bullet from './bullet'
 
   }
 
-  	update(time,delta) {
+  update(time, delta) {
 
-      this.delta_accumulator += delta;
+    this.delta_accumulator += delta;
 
-      if (this.cursors.left.isDown)
-      {
-        this.setAngularVelocity(-this.angularVelocity);
+    if (this.cursors.left.isDown) {
+      this.setAngularVelocity(-this.angularVelocity);
 
-      }
-      else if (this.cursors.right.isDown)
-      {
-        this.setAngularVelocity(this.angularVelocity);
-      
-      }
-      else
-      {
-        this.setAngularVelocity(0);
-      }
+    }
+    else if (this.cursors.right.isDown) {
+      this.setAngularVelocity(this.angularVelocity);
 
-      if (this.cursors.up.isDown)
-      {
-        this.move(true);
+    }
+    else {
+      this.setAngularVelocity(0);
+    }
 
-      }
-      else if (this.cursors.down.isDown)
-      {
+    if (this.cursors.up.isDown) {
+      this.move(true);
 
-        this.move(false);
-      }
-      else
-      {
-        this.setAccelerationX(0);
-        this.setAccelerationY(0);
+    }
+    else if (this.cursors.down.isDown) {
 
-      }
-
-      if(this.cursors.space.isDown) {
-
-        if(this.delta_accumulator > this.shootRate) {
-          this.shoot();
-          this.delta_accumulator = 0;
-        }
-       
-      }
-
-
-	
-	}
-
-	update_delayed(t, dt) {
+      this.move(false);
+    }
+    else {
+      this.setAccelerationX(0);
+      this.setAccelerationY(0);
 
     }
 
-    damage(damage) {
-      this.health.reduce(damage);
+    if (this.cursors.space.isDown) {
 
-      let defecitText = this.generateDeficit()
-      this.scene.add.existing(new Status(this.scene, this.x, this.y, defecitText))
+      if (this.delta_accumulator > this.shootRate) {
+        this.shoot();
+        this.delta_accumulator = 0;
+      }
+
     }
-  
-  repair(options){
-    for (let key in options){
-      console.log(key +": " + this[key] + " -> " + options[key])
+
+
+
+  }
+
+  update_delayed(t, dt) {
+
+  }
+
+  damage(damage) {
+    this.health.reduce(damage);
+
+    let defecitText = this.generateDeficit()
+    this.scene.add.existing(new Status(this.scene, this.x, this.y, defecitText))
+  }
+
+  collect() {
+    this.resources.increase(1);
+  }
+
+  repair(options) {
+    for (let key in options) {
+      console.log(key + ": " + this[key] + " -> " + options[key])
       this[key] = options[key]
     }
   }
@@ -171,12 +169,12 @@ import Bullet from './bullet'
     }
   }
 
-  readAndClearRecentDefecits(){
+  readAndClearRecentDefecits() {
     let local = []
-    for (let item of this.recentDefecits){
-      if (local[item]){
+    for (let item of this.recentDefecits) {
+      if (local[item]) {
         local[item] += 1
-      } else{
+      } else {
         local[item] = 1
       }
     }
@@ -185,16 +183,16 @@ import Bullet from './bullet'
   }
 
   getXPosition() {
-		// TODO: Make this calculate the position from all the objects that make up the player
-		return this.x;
-	}
+    // TODO: Make this calculate the position from all the objects that make up the player
+    return this.x;
+  }
 
-	getYPosition() {
-		// TODO: Make this calculate the position from all the objects that make up the player
-		return this.y;
+  getYPosition() {
+    // TODO: Make this calculate the position from all the objects that make up the player
+    return this.y;
   }
 }
 
-  
+
 
 
