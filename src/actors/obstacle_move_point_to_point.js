@@ -1,18 +1,16 @@
-import EnemyRotatePlayer from "./enemy_rotate_player";
-
 const MODE_FLY_IN = "fly_in";
 const MODE_ROTATE_PLAYER = "rotate_player";
 
 const ENGINE_POWER = 0.00002;
 const DAMPING = 0.02;
 
-export default class EnemyMovePointToPoint extends EnemyRotatePlayer {
+export default class EnemyMovePointToPoint extends Obstacle {
 	/**
 	 * An enemy type that moves from one point to another, then turns to face the player.
 	 */
-	constructor(scene, player, bullets, start_x, start_y, end_x, end_y, image_name, rotation_angle = Math.PI / 2, shoot_speed = 2) {
+	constructor(scene, player, bullets, start_x, start_y, end_x, end_y, image_name, rotation_angle = Math.PI / 2) {
 		// rotation, assuming 0 is up the y axis (because that's how the image is on the sprite sheet)
-		super(scene, player, bullets, start_x, start_y, image_name, rotation_angle, shoot_speed);
+		super(scene, player, bullets, start_x, start_y, image_name, rotation_angle);
 		this.end_x = end_x;
 		this.end_y = end_y;
 
