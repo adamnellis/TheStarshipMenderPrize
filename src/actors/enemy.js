@@ -110,7 +110,7 @@ export default class Enemy extends CircularCollider {
 		}
 		else{
 			this.animation_count +=1
-			if(this.scene.time) {
+			if(this.scene?.time) {
 				this.scene.time.delayedCall(300, () => {if(this.life_animation){this.life_animation()}})
 			}
 		}
@@ -118,7 +118,7 @@ export default class Enemy extends CircularCollider {
 
 	life_animation(){
 		this.clearTint()
-		if(this.scene.time) {
+		if(this.scene?.time) {
 			this.scene.time.delayedCall(300,()=>{if(this.death_animation){this.death_animation()}})
 		}
 	}
@@ -132,7 +132,7 @@ export default class Enemy extends CircularCollider {
 		}
 		else{
 			this.animation_count +=1
-			if(this.scene.time) {
+			if(this.scene?.time) {
 				this.scene.time.delayedCall(200, () => {if(this.injured_flash_animation){this.injured_flash_animation()}})
 			}
 		
@@ -142,7 +142,7 @@ export default class Enemy extends CircularCollider {
 
 	injured_flash_animation(){
 		this.clearTint()
-		if (this.scene.time)
+		if (this.scene?.time)
 		{this.scene.time.delayedCall(200,()=>{if(this.injured_animation){this.injured_animation()}})}
 	}
 
