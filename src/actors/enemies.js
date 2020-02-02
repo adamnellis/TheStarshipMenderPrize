@@ -6,6 +6,7 @@ import EnemyRotatePlayer from './enemy_rotate_player'
 import EnemySpiral from "./enemy_spiral"
 import EnemyMovePointToPoint from "./enemy_move_point_to_point";
 import EnemyMoveDownScreen from "./enemy_move_down_screen";
+import Tutorial from '../ui/tutorial';
 
 export default class Enemies extends GameObjects.Container {
 	constructor(scene, player, bullets, collectibles) {
@@ -27,16 +28,23 @@ export default class Enemies extends GameObjects.Container {
 		// this.enemies.push(new EnemyNormalRotatePlayer(this.scene, this.player, this.bullets, 750, 500, 'enemyBlack1.png'))
 		// this.enemies.push(new EnemySlowSpiral(this.scene, this.player, this.bullets, 600));
 
-		if (this.level === 1) {
-			const num_enemies = 4;
-			const step_size = config.width / (num_enemies + 1);
-			for (let i = 0; i < num_enemies; i++) {
-				const x_pos = (i + 1) * step_size;
-				super.add(new EnemyMoveDownScreen(this.scene, this.player, this.bullets, this.collectibles, "enemyRed1.png", x_pos));
-			}
-		}
-		else {
-			super.add(new EnemyFlyInToCentre(this.scene, this.player, this.bullets, this.collectibles));
+
+		switch (this.level) {
+			case 1:
+				this.tutorial = new Tutorial(this.scene)
+				super.add(new EnemyRotatePlayer(this.scene, this.player, this.bullets, this.collectibles, 1000, 400, 'enemyRed1.png',))
+				break;
+			case 2:
+				const num_enemies = 4;
+				const step_size = config.width / (num_enemies + 1);
+				for (let i = 0; i < num_enemies; i++) {
+					const x_pos = (i + 1) * step_size;
+					super.add(new EnemyMoveDownScreen(this.scene, this.player, this.bullets, this.collectibles, "enemyRed1.png", x_pos));
+				}
+				break;
+		
+			default:
+				super.add(new EnemyFlyInToCentre(this.scene, this.player, this.bullets, this.collectibles));
 		}
 
 		// for(const enemy of this.enemies) {
@@ -59,6 +67,7 @@ export default class Enemies extends GameObjects.Container {
 
 	wait(){
 		this.isAttacking = false
+		
 	}
 }
 
