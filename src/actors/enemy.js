@@ -1,14 +1,16 @@
 import config from './../config'
 import Bullet from "./bullet";
 import CircularCollider from './circularCollider'
+import Collectable from "./collectable";
 
 export default class Enemy extends CircularCollider {
-	constructor(scene, player, bullets, x, y, image_name, rotation_angle, rotation_rate, rotation_damping, shoot_speed = 2) {
+	constructor(scene, player, bullets, collectibles, x, y, image_name, rotation_angle, rotation_rate, rotation_damping, shoot_speed = 2) {
 		/**
 		 * shoot_speed: units are shots per second
 		 */
 		super(scene, x, y, "spaceRedux", image_name);
 		this.bullets = bullets;
+		this.collectibles = collectibles;
 		this.rotation_angle = rotation_angle;
 		this.shoot_speed = shoot_speed;
 
@@ -39,6 +41,10 @@ export default class Enemy extends CircularCollider {
 	}
 
 	update(t, dt) {
+		if (this.dying) {
+			return;
+		}
+
 		// Integrate motion
 		this.physics_angle += this.angular_rotation * dt;
 		this.x += this.velocity_x * dt;
@@ -53,6 +59,9 @@ export default class Enemy extends CircularCollider {
 	}
 
 	update_delayed(t, dt) {
+		if (this.dying) {
+			return;
+		}
 
 		// Destroy enemies when they move off the screen
 		if (this.x < -config.width || this.x > 2 * config.width || this.y < -config.height || this.y > 2 * config.height) {
@@ -60,9 +69,7 @@ export default class Enemy extends CircularCollider {
 			return
 		}
 
-		if(this.dying == false){
-			this.shoot();
-		}
+		this.shoot();
 	}
 
 	shoot() {
@@ -111,7 +118,9 @@ export default class Enemy extends CircularCollider {
 
 	die(){
 
-		//Todo: Deposit resource
+		//Deposit resource
+		const repair = new Collectable(this.scene, this.x, this.y, "repair")
+		this.collectibles.add(repair)
 
 		//Kill this ship
 		this.destroy();

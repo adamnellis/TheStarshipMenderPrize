@@ -17,6 +17,8 @@ export default class Preload extends Scene {
         this.load.image('yellowpower', require('../assets/yellowpower.png'));
         this.load.image('greenpower', require('../assets/greenpower.png'));
 
+        this.load.image('repair', require('../assets/repair.png'));
+
         this.load.image('galaxy', require('../assets/galaxy.png'));
         this.load.image('galaxy2', require('../assets/galaxy2.png'));
         this.load.image('galaxy3', require('../assets/galaxy3.png'));

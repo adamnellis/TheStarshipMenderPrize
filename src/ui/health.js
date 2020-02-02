@@ -11,7 +11,8 @@ export default class Health extends Phaser.GameObjects.Text {
                     width: 400,
                     useAdvancedWrap: true
                 }
-			}).setOrigin(0, 0)
+            }).setOrigin(0, 0)
+        this.setDepth(3)
 			
 		this.health = STARTING_HEALTH
 
