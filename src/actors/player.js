@@ -5,29 +5,35 @@ import Status from './player_status'
 import Bullet from './bullet'
 
  export default class player extends CircularCollider {
- 	constructor(scene) {
+ 	constructor(scene, bullets) {
     super(scene, 500, 200, "spaceRedux", "playerShip1_green.png")
     this.health = new Health(scene)
     this.resources = new Resources(scene)
     this.scene.add.existing(this);
-		this.cursors = scene.input.keyboard.createCursorKeys();
+    this.cursors = scene.input.keyboard.createCursorKeys();
+    this.bullets = bullets;
     
     this.angularVelocity = 100;
     this.velocity = 300;
     this.acceleration = 50;
     this.drag = 50; 
+    this.bulletDamage = 50;
 
     this.setCollideWorldBounds(true);
     this.setDrag(this.drag, this.drag)
 
   }
 
-  shoot() {
-		// Create a bullet moving in the direction that the ship is pointing
-		const bullet = new Bullet(this.scene, this.x, this.y, -Math.sin(this.rotation), Math.cos(this.rotation));
-		this.bullets.add(bullet);
-	}
+  shoot() {     
 
+    // const x = this.x +  Math.sin(this.rotation) * this.height/2  ;
+    // const y = this.y -  Math.cos(this.rotation) * this.height/2 ;   
+
+    // Create a bullet moving in the direction that the ship is pointing
+		const bullet = new Bullet(this.scene, this.x, this.y, Math.sin(this.rotation), -Math.cos(this.rotation), "laserBlue01.png", this.bulletDamage);
+    this.bullets.add(bullet);
+	}
+    
     move(forward) {
     const direction = forward ? 1 : -0.5;
 
@@ -78,8 +84,6 @@ import Bullet from './bullet'
     }
 
     if(this.cursors.space.isDown) {
-
-      console.log('wh')
       this.shoot();
     }
 
@@ -94,10 +98,8 @@ import Bullet from './bullet'
     damage(damage) {
       this.health.reduce(damage);
 
-      // TODO: work out negative affect from damage!
-      // this.velocity -= 50
-
-      this.scene.add.existing(new Status(this.scene, this.x, this.y, "Damage Type"))
+      let defecitText = this.generateDeficit()
+      this.scene.add.existing(new Status(this.scene, this.x, this.y, defecitText))
     }
   
   repair(options){
@@ -107,6 +109,16 @@ import Bullet from './bullet'
     }
   }
 
+  generateDeficit(){
+    switch(Math.floor(Math.random() * 2)){
+      case 1:
+        this.velocity *= 0.8
+        return "- Speed"
+      default:
+        this.angularVelocity *= 0.8
+        return "- Turning"
+    }
+  }
 
   getXPosition() {
 		// TODO: Make this calculate the position from all the objects that make up the player

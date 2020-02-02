@@ -26,16 +26,21 @@ export default class Status extends Phaser.GameObjects.Text {
 			delay: 0,
 			x:{
 				getStart: () => this.x,
-				getEnd: () => this.x - 100
+				getEnd: () => this.randomDirection(this.x)
 			},
 			y:{
 				getStart: () => this.y,
-				getEnd: () => this.y - 100
+				getEnd: () => this.randomDirection(this.y)
 			},
 			alpha: {
 				getStart: () => this.alpha,
 				getEnd: () => 0
 			},
 		});
+	}
+
+	randomDirection(value){
+		let delta = 200 * (Math.random() < 0.5 ? -1 : 1)
+		return value + delta
 	}
 }
