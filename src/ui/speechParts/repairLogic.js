@@ -139,42 +139,56 @@ export default class RepairLogic {
 			//TODO: need different things
 			options = [{
 				text: `
-				New FTL Drive
+				Install Cannoniser
 
-				Great Speed
-				Great Turning
+				Great Accuracy
+				Great Fire Rate
 				`,
 				options: {
-					velocity: 650,
-					angularVelocity: 500
+					bulletDamage: 100,
+					bulletPicture: 'laserBlue01.png',
+					shootRate: 300,
+					bulletDirectionModifier: 1,
+					bulletSpeed: 1,
+					shootRandomDirectionMin: 0,
+					shootRandomDirectionMax: 0,
 				}
 			}]
 		} else if (performance >= 40){
-			//TODO: need different things
 			options = [{
 				text: `
-				New FTL Drive
+				Re-install Weapon
 
-				Great Speed
-				Great Turning
+				Great Accuracy
+				Moderate Fire Rate
 				`,
 				options: {
-					velocity: 650,
-					angularVelocity: 500
+					bulletDamage: 100,
+					bulletPicture: 'laserBlue01.png',
+					shootRate: 200,
+					bulletDirectionModifier: 1,
+					bulletSpeed: 1,
+					shootRandomDirectionMin: 0,
+					shootRandomDirectionMax: 0,
 				}
 			}]
 		} else {
 			//TODO: need different things
 			options = [{
 				text: `
-				New FTL Drive
+				Weld Gun Barrels
 
-				Great Speed
-				Great Turning
+				Great Accuracy
+				Poor Fire Rate
 				`,
 				options: {
-					velocity: 650,
-					angularVelocity: 500
+					bulletDamage: 100,
+					bulletPicture: 'laserBlue01.png',
+					shootRate: 50,
+					bulletDirectionModifier: 1,
+					bulletSpeed: 1,
+					shootRandomDirectionMin: 0,
+					shootRandomDirectionMax: 0,
 				}
 			}]
 		}
