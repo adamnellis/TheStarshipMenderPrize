@@ -157,13 +157,14 @@ export default class Game extends Scene {
 
        
 
+            // Commented out for production - uncomment for development
             // Cheats for testing
-            if (this.keys.k.isDown) {
-                // K key kills all enemies
-                for(const enemy of this.enemies.list) {
-                    enemy.damage(10000);
-                }
-            }
+            // if (this.keys.k.isDown) {
+            //     // K key kills all enemies
+            //     for(const enemy of this.enemies.list) {
+            //         enemy.damage(10000);
+            //     }
+            // }
 
 		}
 
