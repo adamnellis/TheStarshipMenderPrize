@@ -9,6 +9,7 @@ import Bullets from "../actors/bullets"
 import Enemies from '../actors/enemies'
 import Speech from '../ui/speech'
 import Score from '../ui/score'
+import PlayerBullets from '../actors/playerBullets'
 
 const PHYSICS_FPS = 15;
 const physics_dt = 1000 / PHYSICS_FPS;
@@ -66,7 +67,8 @@ export default class Game extends Scene {
         this.dt_accumulator = 0;
 
         this.bullets = new Bullets(this)
-        this.player = new Player(this)
+        this.playerBullets = new PlayerBullets(this);
+        this.player = new Player(this, this.playerBullets)
 
         this.enemies = new Enemies(this, this.player, this.bullets)
         this.enemies.spawn()
@@ -75,15 +77,15 @@ export default class Game extends Scene {
             ship.damage(SHIP_HIT_DAMAGE);
             enemy.damage(100);
         }
-
         
 		const shipShot = (ship, bullet) => {
-			ship.damage(bullet.damage);
+            ship.damage(bullet.damage);
 			bullet.destroy();
-		}
+        }
 
-        this.physics.add.collider(this.player, this.enemies.enemies, collideShips);
-        this.physics.add.collider(this.player,  this.bullets.list, shipShot);
+        this.physics.add.collider(this.player, this.enemies.list, collideShips);
+        this.physics.add.collider(this.player, this.bullets.list, shipShot);
+        this.physics.add.collider(this.enemies.list, this.playerBullets.list, shipShot);
 
         this.speech = new Speech(this, this.player, this.enemies)
     
@@ -96,6 +98,7 @@ export default class Game extends Scene {
 			this.enemies.update_delayed(t, this.dt_accumulator);
             this.player.update_delayed(t, this.dt_accumulator);
             this.bullets.update_delayed(t, this.dt_accumulator);
+            this.playerBullets.update_delayed(t, this.dt_accumulator);
             this.dt_accumulator = 0;
 
             if (this.enemies.isAttacking && (this.enemies.list.length === 0)){
@@ -119,5 +122,6 @@ export default class Game extends Scene {
 		this.enemies.update(t, dt);
         this.player.update(t, dt);
         this.bullets.update(t, dt);
+        this.playerBullets.update(t, dt);
     }
 }
