@@ -120,7 +120,7 @@ export default class Game extends Scene {
         this.speech = new Speech(this, this.player, this.enemies, this.background)
 
      
-        this.keys = this.input.keyboard.addKeys('k');
+        this.keys = this.input.keyboard.addKeys('k,w,a,d');
     }
 
     update(t, dt) {
@@ -154,17 +154,6 @@ export default class Game extends Scene {
 
                 //FIXME: when selected choice unwait enemies.
             }
-
-       
-
-            // Cheats for testing
-            if (this.keys.k.isDown) {
-                // K key kills all enemies
-                for(const enemy of this.enemies.list) {
-                    enemy.damage(10000);
-                }
-            }
-
 		}
 
 		this.enemies.update(t, dt);
