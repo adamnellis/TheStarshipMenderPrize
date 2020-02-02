@@ -11,6 +11,7 @@ import Background from '../actors/background'
 import Speech from '../ui/speech'
 import Score from '../ui/score'
 import PlayerBullets from '../actors/playerBullets'
+import Collectibles from "../actors/collectibles";
 
 const PHYSICS_FPS = 15;
 const physics_dt = 1000 / PHYSICS_FPS;
@@ -72,15 +73,22 @@ export default class Game extends Scene {
         this.playerBullets = new PlayerBullets(this);
         this.player = new Player(this, this.playerBullets)
 
-        this.enemies = new Enemies(this, this.player, this.bullets)
+        this.collectibles = new Collectibles(this)
+
+        this.enemies = new Enemies(this, this.player, this.bullets, this.collectibles)
         this.enemies.spawn()
 
         const collideShips = (ship, enemy) => {
             ship.damage(SHIP_HIT_DAMAGE);
+            this.score.increase(10)
             enemy.damage(100);
         }
         
 		const shipShot = (ship, bullet) => {
+            if(this.ship != this.player) {
+                this.score.increase(50)
+            }
+          
             ship.damage(bullet.damage);
 			bullet.destroy();
         }
@@ -105,13 +113,20 @@ export default class Game extends Scene {
 
             if (this.enemies.isAttacking && (this.enemies.list.length === 0)){
                 this.enemies.wait()
+
+                if(this.enemies.tutorial) this.enemies.tutorial.destroy();
+                const collectiblesCopy = this.collectibles.list.slice()
+
+                for(let collectable of collectiblesCopy){
+                    collectable.pickup()
+                }
+
                 this.speech.open()
 
                 //FIXME: when selected choice unwait enemies.
             }
 
-            // FIXME: remove this when score captured elsewhere
-            this.score.increase(1)
+       
 
             // Cheats for testing
             if (this.keys.k.isDown) {
