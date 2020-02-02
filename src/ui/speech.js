@@ -74,13 +74,13 @@ export default class Speech extends GameObjects.Container {
 			let icon;
 			switch (number) {
 				case 0:
-					icon = 'arrowLeft';
+					icon = 'a';
 					break;
 				case 1:
-					icon = 'arrowUp';
+					icon = 'w';
 					break;
 				default:
-					icon = 'arrowRight';
+					icon = 'd';
 					break;
 			}
 
@@ -206,7 +206,7 @@ export default class Speech extends GameObjects.Container {
 
 	generateOptionsReport(){
 		let options = [
-			"Use ARROW keys to pick ONE from the following options:"
+			"Use A,W,D keys tp pick ONE from the following options:"
 		]
 
 		return options[Math.floor(Math.random() * options.length)]
@@ -215,11 +215,11 @@ export default class Speech extends GameObjects.Container {
 	update() {
 		if(this.selectionsVisible != 3  ) return;
 
-		if(this.scene.cursors.left.isDown) {
+		if(this.scene.keys.a.isDown) {
 			this.selectSelection(0);
-		} else if(this.scene.cursors.up.isDown ){
+		} else if(this.scene.keys.w.isDown ){
 			this.selectSelection(1);
-		} else if(this.scene.cursors.right.isDown ){
+		} else if(this.scene.keys.d.isDown ){
 			this.selectSelection(2);
 		} 
 	}

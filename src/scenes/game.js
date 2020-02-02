@@ -120,7 +120,7 @@ export default class Game extends Scene {
         this.speech = new Speech(this, this.player, this.enemies, this.background)
 
      
-        this.keys = this.input.keyboard.addKeys('k');
+        this.keys = this.input.keyboard.addKeys('k,w,a,d');
     }
 
     update(t, dt) {
