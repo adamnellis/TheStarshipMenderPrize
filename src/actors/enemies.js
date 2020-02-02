@@ -5,6 +5,7 @@ import config from './../config'
 import EnemyRotatePlayer from './enemy_rotate_player'
 import EnemySpiral from "./enemy_spiral"
 import EnemyMovePointToPoint from "./enemy_move_point_to_point";
+import EnemyMoveDownScreen from "./enemy_move_down_screen";
 
 export default class Enemies extends GameObjects.Container {
 	constructor(scene, player, bullets) {
@@ -26,7 +27,12 @@ export default class Enemies extends GameObjects.Container {
 		// this.enemies.push(new EnemySlowSpiral(this.scene, this.player, this.bullets, 600));
 
 		if (this.level === 1) {
-			super.add(new EnemyFlyInToCentre(this.scene, this.player, this.bullets));
+			const num_enemies = 4;
+			const step_size = config.width / (num_enemies + 1);
+			for (let i = 0; i < num_enemies; i++) {
+				const x_pos = (i + 1) * step_size;
+				super.add(new EnemyMoveDownScreen(this.scene, this.player, this.bullets, "enemyRed1.png", x_pos));
+			}
 		}
 		else {
 			super.add(new EnemyFlyInToCentre(this.scene, this.player, this.bullets));
