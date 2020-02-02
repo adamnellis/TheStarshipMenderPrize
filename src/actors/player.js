@@ -22,26 +22,32 @@ import Bullet from './bullet'
     this.setDrag(this.drag, this.drag)
 
     //Gun modifiers
-    this.bulletDamage = 50;
+    this.bulletDamage = 100;
     this.bulletPicture = 'laserBlue01.png';
     this.shootRate = 200;
     this.bulletDirectionModifier = 1;  // radians * this. 1 is straight. 
     this.bulletSpeed = 1; // 2 would give 2x speed; -1 would be shoot backwards
-
+    this.shootRandomDirectionMax = 1;
 
 
     this.setCollideWorldBounds(true);
     
   }
 
-  shoot() {     
+
+
+  shoot() {    
+
+    const randomModifier =  Math.random() * (this.shootRandomDirectionMax) + 1;
 
     // const x = this.x +  Math.sin(this.rotation) * this.height/2  ;
     // const y = this.y -  Math.cos(this.rotation) * this.height/2 ;   
 
 
-    const x_velocity = Math.sin(this.rotation *  this.bulletDirectionModifier) * this.bulletSpeed;
+    const x_velocity = Math.sin(this.rotation *  this.bulletDirectionModifier ) * this.bulletSpeed;
     const y_velocity = -Math.cos(this.rotation *  this.bulletDirectionModifier) * this.bulletSpeed;
+
+
 
 
     // Create a bullet moving in the direction that the ship is pointing
@@ -118,7 +124,7 @@ import Bullet from './bullet'
     }
 
     damage(damage) {
-      // this.health.reduce(damage);
+      this.health.reduce(damage);
 
       let defecitText = this.generateDeficit()
       this.scene.add.existing(new Status(this.scene, this.x, this.y, defecitText))
