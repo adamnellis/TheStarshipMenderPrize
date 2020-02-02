@@ -7,11 +7,11 @@ export default class EnemyMoveDownScreen extends EnemyMoveFunction {
 	/**
 	 * An enemy type that moves in a spiral across the screen.
 	 */
-	constructor(scene, player, bullets, collectibles, image_name, x_start = 100, travel_time = 3, y_start_buffer = 100, y_turn_buffer = 200, x_turn_radius = 500) {
+	constructor(scene, player, bullets, collectibles, image_name, x_start = 100, travel_time = 3, y_start_buffer = 100, y_turn_buffer = 200, x_turn_radius = 500, shoot_speed = 2, health = 100) {
 		// travel_time: seconds for enemy to move from top of screen to bottom
 		// y_start_buffer: game units that ship starts above the screen, so you don't see it appear
 		// y_turn_buffer: game units before the bottom of the screen that the ship begins its turn
-		super(scene, player, bullets, collectibles, image_name, ROTATION_ANGLE);
+		super(scene, player, bullets, collectibles, image_name, ROTATION_ANGLE, shoot_speed, health);
 		this.x_start = x_start;
 		this.travel_time = travel_time;
 		this.y_start_buffer = y_start_buffer;
