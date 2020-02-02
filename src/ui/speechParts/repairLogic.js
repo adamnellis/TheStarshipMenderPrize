@@ -13,7 +13,6 @@ export default class RepairLogic {
 	generateMobility(){
 		let options = []
 		if (performance >= 95){
-			//TODO: need different things
 			options = [{
 				text: `
 				New FTL Drive
@@ -27,33 +26,109 @@ export default class RepairLogic {
 				}
 			}]
 		} else if (performance >= 40){
-			//TODO: need different things
-			options = [{
-				text: `
-				New FTL Drive
+			options = [
+				{
+					text: `
+					Rebuild Engine Block
 
-				Great Speed
-				Great Turning
-				`,
-				options: {
-					velocity: 650,
-					angularVelocity: 500
-				}
-			}]
+					Good Speed
+					`,
+					options: {
+						velocity: 500,
+					}
+				},
+				... (this.player.angularVelocity < 50) ? [{
+					text: `
+					Re-attach Thrusters
+
+					Triple Turning Speed
+					`,
+					options: {
+						angularVelocity: this.angularVelocity*3
+					}
+				}] : [],
+				... (this.player.velocity < 100) ? [{
+					text: `
+					Increase Fuel Injectors
+
+					Triple Speed
+					`,
+					options: {
+						angularVelocity: this.velocity*3
+					}
+				}] : [],
+			]
 		} else {
-			//TODO: need different things
-			options = [{
+			options = [
+			{
 				text: `
-				New FTL Drive
+				Ignite Reserve Core
 
-				Great Speed
-				Great Turning
+				Poor Speed
+				Poor Turning
 				`,
 				options: {
-					velocity: 650,
-					angularVelocity: 500
+					velocity: 250,
+					angularVelocity: 80
 				}
-			}]
+			},
+			{
+				text: `
+				Inhale Exhaust Fumes
+
+				Poor Speed
+				Poor Turning
+				`,
+				options: {
+					velocity: 250,
+					angularVelocity: 80
+				}
+			},
+			{
+				text: `
+				Remove Warning Labels
+
+				Poor Speed
+				Double Turning
+				`,
+				options: {
+					velocity: 250,
+					angularVelocity: this.angularVelocity*2
+				}
+			},
+			{
+				text: `
+				Break Emergency Lights
+
+				Poor Speed
+				Poor Turning
+				`,
+				options: {
+					velocity: 250,
+					angularVelocity: 80
+				}
+			},
+			... (this.player.angularVelocity < 80) ? [{
+				text: `
+				Paper Mache Thruster
+
+				Double Turning Speed
+				`,
+				options: {
+					angularVelocity: this.angularVelocity*2
+				}
+			}] : [],
+			... (this.player.velocity < 200) ? [{
+				text: `
+				Paper Mache Exhaust
+
+				Double Speed
+				`,
+				options: {
+					angularVelocity: this.velocity*3
+				}
+			}] : [],
+		]
 		}
 		return options[Math.floor(Math.random() * options.length)]
 	}
