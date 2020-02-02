@@ -33,8 +33,6 @@ export default class Game extends Scene {
         }
 
         super(config);
-
-       
     }
 
     preload() {}
@@ -82,12 +80,12 @@ export default class Game extends Scene {
 			bullet.destroy();
 		}
 
-        this.physics.add.collider(this.player, this.enemies.enemies, collideShips);
+        this.physics.add.collider(this.player, this.enemies.list, collideShips);
         this.physics.add.collider(this.player,  this.bullets.list, shipShot);
 
         this.speech = new Speech(this, this.player, this.enemies)
-    
-    
+
+        this.keys = this.input.keyboard.addKeys('k');
     }
 
     update(t, dt) {
@@ -114,6 +112,14 @@ export default class Game extends Scene {
 
             // FIXME: remove this when score captured elsewhere
             this.score.increase(1)
+
+            // Cheats for testing
+            if (this.keys.k.isDown) {
+                // K key kills all enemies
+                for(const enemy of this.enemies.list) {
+                    enemy.damage(10000);
+                }
+            }
 		}
 
 		this.enemies.update(t, dt);
