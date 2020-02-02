@@ -29,7 +29,6 @@ export default class Game extends Scene {
             physics: {
                 default: 'arcade',
                 arcade: {
-                    debug: true,
                     gravity: {
                         y: 0
                     }
