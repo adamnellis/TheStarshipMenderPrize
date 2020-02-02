@@ -77,13 +77,13 @@ export default class Enemy extends CircularCollider {
 		}
 		else{
 			this.animation_count +=1
-			this.scene.time.delayedCall(300, () => {this.life_animation()})
+			this.scene.time.delayedCall(300, () => {if(this.life_animation){this.life_animation()}})
 		}
 	}
 
 	life_animation(){
 		this.clearTint()
-		this.scene.time.delayedCall(300,()=>{this.death_animation()})
+		this.scene.time.delayedCall(300,()=>{if(this.death_animation){this.death_animation()}})
 	}
 
 
