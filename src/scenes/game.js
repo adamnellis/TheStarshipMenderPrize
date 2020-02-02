@@ -80,10 +80,15 @@ export default class Game extends Scene {
 
         const collideShips = (ship, enemy) => {
             ship.damage(SHIP_HIT_DAMAGE);
+            this.score.increase(10)
             enemy.damage(100);
         }
         
 		const shipShot = (ship, bullet) => {
+            if(this.ship != this.player) {
+                this.score.increase(50)
+            }
+          
             ship.damage(bullet.damage);
 			bullet.destroy();
         }
@@ -121,8 +126,7 @@ export default class Game extends Scene {
                 //FIXME: when selected choice unwait enemies.
             }
 
-            // FIXME: remove this when score captured elsewhere
-            this.score.increase(1)
+       
 
             // Cheats for testing
             if (this.keys.k.isDown) {
