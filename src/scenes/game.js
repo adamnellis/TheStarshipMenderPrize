@@ -110,8 +110,6 @@ export default class Game extends Scene {
             destroyCollectable(collectable);
         }
 
-      
-
         this.physics.add.collider(this.player, this.enemies.list, collideShips);
         this.physics.add.collider(this.player, this.bullets.list, shipShot);
         this.physics.add.collider(this.enemies.list, this.playerBullets.list, shipShot);
@@ -125,9 +123,7 @@ export default class Game extends Scene {
 
     update(t, dt) {
         this.dt_accumulator += dt;
-
         
-
 		if (this.dt_accumulator > physics_dt) {
 			this.enemies.update_delayed(t, this.dt_accumulator);
             this.player.update_delayed(t, this.dt_accumulator);
@@ -136,9 +132,6 @@ export default class Game extends Scene {
             this.dt_accumulator = 0;
 
             if (this.enemies.isAttacking && (this.enemies.list.length === 0)){
-                
-                console.log(this.newLevelTimer)
-
                 this.newLevelTimer += dt;
 
                 if (this.newLevelTimer > NEW_LEVEL_TIME_OUT) {

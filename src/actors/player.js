@@ -136,6 +136,11 @@ export default class player extends CircularCollider {
       console.log(key + ": " + this[key] + " -> " + options[key])
       this[key] = options[key]
     }
+
+    console.log('WHAT THE FUCK')
+
+    this.health.clear();
+    this.resources.clear();
   }
 
   generateDeficit(){
