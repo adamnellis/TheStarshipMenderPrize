@@ -6,11 +6,59 @@ export default class RepairLogic {
 
 	generate() {
 		let performance = (this.player.resources.resources*10) + this.player.health.health
-		this.choices = [this.generateMobility(performance), this.generateMobility(performance), this.generateTradeoff(performance)]
+		this.choices = [this.generateMobility(performance), this.generateWeapon(performance), this.generateTradeoff(performance)]
 		return this.choices.map(o => o.text)
 	}
 
 	generateMobility(){
+		let options = []
+		if (performance >= 95){
+			//TODO: need different things
+			options = [{
+				text: `
+				New FTL Drive
+
+				Great Speed
+				Great Turning
+				`,
+				options: {
+					velocity: 650,
+					angularVelocity: 500
+				}
+			}]
+		} else if (performance >= 40){
+			//TODO: need different things
+			options = [{
+				text: `
+				New FTL Drive
+
+				Great Speed
+				Great Turning
+				`,
+				options: {
+					velocity: 650,
+					angularVelocity: 500
+				}
+			}]
+		} else {
+			//TODO: need different things
+			options = [{
+				text: `
+				New FTL Drive
+
+				Great Speed
+				Great Turning
+				`,
+				options: {
+					velocity: 650,
+					angularVelocity: 500
+				}
+			}]
+		}
+		return options[Math.floor(Math.random() * options.length)]
+	}
+
+	generateWeapon(){
 		let options = []
 		if (performance >= 95){
 			//TODO: need different things
