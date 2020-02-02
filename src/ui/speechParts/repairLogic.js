@@ -147,7 +147,7 @@ export default class RepairLogic {
 				options: {
 					bulletDamage: 100,
 					bulletPicture: 'laserBlue01.png',
-					shootRate: 300,
+					shootRate: 150,
 					bulletDirectionModifier: 1,
 					bulletSpeed: 1,
 					shootRandomDirectionMin: 0,
@@ -184,7 +184,7 @@ export default class RepairLogic {
 				options: {
 					bulletDamage: 100,
 					bulletPicture: 'laserBlue01.png',
-					shootRate: 50,
+					shootRate: 400,
 					bulletDirectionModifier: 1,
 					bulletSpeed: 1,
 					shootRandomDirectionMin: 0,
@@ -209,7 +209,7 @@ export default class RepairLogic {
 				`,
 				options: {
 					bulletSpeed: 2,
-					shootRate: 400,
+					shootRate: 100,
 					shootRandomDirectionMin: -3.1,
 					shootRandomDirectionMax: 3.1,
 				}
