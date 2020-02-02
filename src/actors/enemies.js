@@ -32,7 +32,7 @@ export default class Enemies extends GameObjects.Container {
 		switch (this.level) {
 			case 1:
 				this.tutorial = new Tutorial(this.scene)
-				super.add(new EnemyRotatePlayer(this.scene, this.player, this.bullets, 1000, 400, 'enemyRed1.png',))
+				super.add(new EnemyRotatePlayer(this.scene, this.player, this.bullets, this.collectibles, 1000, 400, 'enemyRed1.png',))
 				break;
 			case 2:
 				const num_enemies = 4;
