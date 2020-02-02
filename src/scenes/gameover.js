@@ -27,10 +27,10 @@ export default class GameOver extends Scene {
 
         this.title_button_small = new TextButton(
             this,
-            950,
-            700,
+            850,
+           800,
             'Press SPACE to Restart Game', {
-                font: "bold 50px Arial",
+                font: "bold 40px Arial",
                 fill: '#bb6c2e'
             },
             () => this.scene.start('game', {
