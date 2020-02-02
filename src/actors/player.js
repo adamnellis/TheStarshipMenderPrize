@@ -141,7 +141,25 @@ import Bullet from './bullet'
   }
 
   generateDeficit(){
-    switch(Math.floor(Math.random() * 2)){
+    switch(Math.floor(Math.random() * 3)){
+      case 0:
+        if (this.shootRandomDirectionMin > -0.5){
+          this.shootRandomDirectionMin = -0.5;
+          this.shootRandomDirectionMax = 0.5;
+        } else if (this.bulletSpeed > 0.5){
+          this.bulletSpeed = 0.5
+        } else if (this.bulletSpeed > -0.5){
+          this.bulletSpeed = -0.5
+        } else if (this.shootRandomDirectionMin > -3.1){
+          this.shootRandomDirectionMin = -3.1;
+          this.shootRandomDirectionMax = 3.1;
+        } else { // HANDLE
+          this.velocity *= 0.8
+          this.recentDefecits.push("speed")
+          return "- Speed"
+        }
+        this.recentDefecits.push("accuracy")
+        return "- Accuracy"
       case 1:
         this.velocity *= 0.8
         this.recentDefecits.push("speed")
