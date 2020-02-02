@@ -100,10 +100,11 @@ export default class Speech extends GameObjects.Container {
 		}
 
 		let damageReport = this.generateDamageReport(most, serious, minor, amount)
+		let generateActivityReport = this.generateActivityReport(this.player.health.health, this.player.resources.resources)
 		let optionsReport = this.generateOptionsReport()
 
 		return damageReport + "\n\n\n" + 
-		`I managed to repair the flux capactior drive with our guns secondary heat sink pump. But what do we do with the hull?`+ "\n\n" +
+		generateActivityReport + "\n\n\n" +
 		optionsReport
 	}
 
@@ -131,13 +132,51 @@ export default class Speech extends GameObjects.Container {
 			]
 		} else {
 			options = [
-				"Captain. Brilliant flying. We didn't take any damage there",
+				"Captain. Brilliant flying. We didn't take any damage!",
 				"Captain. No new damage to report."
 			]
 		}
 		return options[Math.floor(Math.random() * options.length)]
 	}
 	
+	generateActivityReport(health = 100, resources = 50){
+		let options = []
+		
+		if (resources > health){ // GOOD
+			if (health >= 70){ // VERY GOOD
+				options = [
+					"I have got plenty of spare materials. What should I work on next?"
+				]
+			} else if (health >= 40) { // MODERATE, BUT GOOD RESOURCE
+				options = [
+					"You managed to get a good amount of resource this time. What do you want me to do with them?"
+				]
+			} else { // POOR, BUT GOOD RESOURCE
+				options = [
+					"Critical life support systems have been repaired. What should I do with the rest of the resources?",
+					"Unfortunately, I can't perform miracles even with all these resources. So, after the life support is back, which tiny fix do you want?"
+				]
+			}
+		} else { // BAD
+			if (health >= 70){ // VERY GOOD
+				options = [
+					"I have time but not many resources. What should I use them for?",
+					"I have a single roll of tape left. Let me make the following suggestions.",
+				]
+			} else if (health >= 40) { // MODERATE, BUT GOOD RESOURCE
+				options = [
+					"I don't have as many resources as I would like. These are the best repairs I can offer."
+				]
+			} else { // POOR, BUT GOOD RESOURCE
+				options = [
+					"Even if I has the resources, which I do not, we just do not have the time to fix everything. Which of these bad options do you want?"
+				]
+			}
+		}
+
+		return options[Math.floor(Math.random() * options.length)]
+	}
+
 	generateOptionsReport(){
 		let options = [
 			"Pick ONE from the following options:"

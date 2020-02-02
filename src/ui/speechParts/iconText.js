@@ -11,6 +11,8 @@ export default class IconButton extends Phaser.GameObjects.Text {
                 }
             }).setOrigin(0.5, 0)
 
+        this.setDepth(3)
+
         scene.add.existing(this)
     }
 }

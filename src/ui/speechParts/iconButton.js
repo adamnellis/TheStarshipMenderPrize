@@ -2,6 +2,8 @@ export default class IconButton extends Phaser.GameObjects.Sprite {
     constructor(scene, x, y, callback) {
         super(scene, x, y, "bluepower")
 
+        this.setDepth(3)
+
         this.setInteractive({
                 useHandCursor: true
             })

@@ -4,6 +4,7 @@ import CircularCollider from './circularCollider'
 export default class Enemy extends CircularCollider {
 	constructor(scene, player, x, y, image_name, rotation_angle, rotation_rate, rotation_damping) {
 		super(scene, x, y, "spaceRedux", image_name);
+		this.setDepth(9)
 		this.rotation_angle = rotation_angle;
 
 		// this.setOrigin(0, 0);

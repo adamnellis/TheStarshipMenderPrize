@@ -10,6 +10,7 @@ const BULLET_DAMAGE = 10;
 export default class Bullet extends Collider {
 	constructor(scene, x_pos, y_pos, x_vel, y_vel, image_name = "laserBlue01.png", damage = BULLET_DAMAGE) {
 		super(scene, x_pos, y_pos, "spaceRedux", image_name);
+		this.setDepth(8)
 		this.scene.add.existing(this);
 
 		this.setOrigin(0.5, 0.1)

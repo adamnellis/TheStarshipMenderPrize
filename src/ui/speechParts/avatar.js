@@ -6,6 +6,8 @@ export default class Avatar extends GameObjects.Sprite {
 	constructor(scene, x, y) {
 		super(scene, x, y, "crew")
 
+		this.setDepth(3)
+
 		this.currentTween = null
 		this.scene = scene
 		this.duration = 1000

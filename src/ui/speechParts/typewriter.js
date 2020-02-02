@@ -1,6 +1,8 @@
 export default class Typewriter extends Phaser.GameObjects.Text {
 	constructor(scene, x, y, style) {
-		super(scene, x, y, "", style);
+		super(scene, x, y, "", style)
+
+		this.setDepth(3)
 
 		this.scene = scene
 		this.timer = null

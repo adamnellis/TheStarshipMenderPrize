@@ -10,6 +10,8 @@ export default class TopScore extends Phaser.GameObjects.Text {
                     useAdvancedWrap: true
                 }
             }).setOrigin(0.5, 0)
+
+        this.setDepth(3)
             
         let best = JSON.parse(localStorage.getItem('SM_GAME_BEST'))
         
