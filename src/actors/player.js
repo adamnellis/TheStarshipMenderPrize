@@ -94,10 +94,8 @@ import Bullet from './bullet'
     damage(damage) {
       this.health.reduce(damage);
 
-      // TODO: work out negative affect from damage!
-      // this.velocity -= 50
-
-      this.scene.add.existing(new Status(this.scene, this.x, this.y, "Damage Type"))
+      let defecitText = this.generateDeficit()
+      this.scene.add.existing(new Status(this.scene, this.x, this.y, defecitText))
     }
   
   repair(options){
@@ -107,6 +105,16 @@ import Bullet from './bullet'
     }
   }
 
+  generateDeficit(){
+    switch(Math.floor(Math.random() * 2)){
+      case 1:
+        this.velocity *= 0.8
+        return "- Speed"
+      default:
+        this.angularVelocity *= 0.8
+        return "- Turning"
+    }
+  }
 
   getXPosition() {
 		// TODO: Make this calculate the position from all the objects that make up the player
