@@ -33,6 +33,8 @@ export default class Game extends Scene {
         }
 
         super(config);
+
+       
     }
 
     preload() {}
@@ -64,7 +66,6 @@ export default class Game extends Scene {
         this.dt_accumulator = 0;
 
         this.bullets = new Bullets(this)
-
         this.player = new Player(this)
 
         this.enemies = new Enemies(this, this.player, this.bullets)
@@ -75,10 +76,18 @@ export default class Game extends Scene {
             enemy.damage(100);
         }
 
+        
+		const shipShot = (ship, bullet) => {
+			ship.damage(bullet.damage);
+			bullet.destroy();
+		}
+
         this.physics.add.collider(this.player, this.enemies.enemies, collideShips);
-       
+        this.physics.add.collider(this.player,  this.bullets.list, shipShot);
 
         this.speech = new Speech(this, this.player, this.enemies)
+    
+    
     }
 
     update(t, dt) {
