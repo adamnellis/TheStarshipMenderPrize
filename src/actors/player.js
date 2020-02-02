@@ -11,7 +11,7 @@ export default class player extends CircularCollider {
     this.health = new Health(scene)
     this.resources = new Resources(scene)
     this.scene.add.existing(this);
-    this.cursors = scene.input.keyboard.createCursorKeys();
+    this.cursors = this.scene.cursors;
     this.bullets = bullets;
     this.delta_accumulator = 0;
 
@@ -41,7 +41,6 @@ export default class player extends CircularCollider {
     this.setCollideWorldBounds(true);
 
   }
-
 
 
   shoot() {
@@ -112,8 +111,6 @@ export default class player extends CircularCollider {
 
     }
 
-
-
   }
 
   update_delayed(t, dt) {
@@ -136,8 +133,6 @@ export default class player extends CircularCollider {
       console.log(key + ": " + this[key] + " -> " + options[key])
       this[key] = options[key]
     }
-
-    console.log('WHAT THE FUCK')
 
     this.health.clear();
     this.resources.clear();

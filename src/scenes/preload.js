@@ -27,6 +27,10 @@ export default class Preload extends Scene {
         this.load.image('moon', require('../assets/moon.png'));
         this.load.image('star', require('../assets/star.png'));
 
+        this.load.image('arrowLeft', require('../assets/arrowLeft.png'));
+        this.load.image('arrowRight', require('../assets/arrowRight.png'));
+        this.load.image('arrowUp', require('../assets/arrowUp.png'));
+
         this.load.atlasXML("spaceRedux", require("../assets/spaceRedux.png"), require("../assets/spaceRedux.xml"))
         this.load.atlasXML("spaceExtra", require("../assets/spaceExtra.png"), require("../assets/spaceExtra.xml"))
     }

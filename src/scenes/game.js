@@ -15,7 +15,7 @@ import Collectibles from "../actors/collectibles";
 
 const PHYSICS_FPS = 15;
 const physics_dt = 1000 / PHYSICS_FPS;
-const SHIP_HIT_DAMAGE = 50;
+const SHIP_HIT_DAMAGE = 30;
 const NEW_LEVEL_TIME_OUT = 1000;
 
 const SCORE_SHOT = 50;
@@ -29,7 +29,6 @@ export default class Game extends Scene {
             physics: {
                 default: 'arcade',
                 arcade: {
-                    debug: true,
                     gravity: {
                         y: 0
                     }
@@ -60,6 +59,8 @@ export default class Game extends Scene {
 
         this.physics.world.setBoundsCollision(true, true, true, true);
 
+        this.cursors = this.input.keyboard.createCursorKeys();
+        
         this.back_button = new TextButton(
             this,
             50,
@@ -118,6 +119,7 @@ export default class Game extends Scene {
 
         this.speech = new Speech(this, this.player, this.enemies, this.background)
 
+     
         this.keys = this.input.keyboard.addKeys('k');
     }
 
@@ -162,11 +164,13 @@ export default class Game extends Scene {
                     enemy.damage(10000);
                 }
             }
+
 		}
 
 		this.enemies.update(t, dt);
         this.player.update(t, dt);
         this.bullets.update(t, dt);
         this.playerBullets.update(t, dt);
+        this.speech.update(); 
     }
 }

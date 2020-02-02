@@ -14,6 +14,7 @@ export default class Speech extends GameObjects.Container {
 		this.player = player
 		this.enemies = enemies
 		this.background = background
+		this.selectionsVisible = 0;
 
 		this.repairLogic = new RepairLogic(player)
 
@@ -46,6 +47,7 @@ export default class Speech extends GameObjects.Container {
 
 			this.scene.time.delayedCall(this.typewriter.duration * text.length, () => {
 				this.addSelections()
+				
 			})
 		})
 	}
@@ -58,18 +60,39 @@ export default class Speech extends GameObjects.Container {
 		this.addSelection(2, 1150, 500, texts[2])
 	}
 
+	selectSelection(number) {
+		this.selectionsVisible  = 0;
+		this.repairLogic.pick(number)
+		this.clear()
+		this.background.generateLevelBackground()
+		this.enemies.spawn()
+	}
+
 	addSelection(number, x, y, text) {
 		this.scene.time.delayedCall(((number + 1) * 500) + 500, () => {
+
+			let icon;
+			switch (number) {
+				case 0:
+					icon = 'arrowLeft';
+					break;
+				case 1:
+					icon = 'arrowUp';
+					break;
+				default:
+					icon = 'arrowRight';
+					break;
+			}
+
+
 			if (this.isOpen) {
-				super.add(new IconButton(this.scene, x, y,
+				super.add(new IconButton(this.scene, x, y, icon,
 					() => {
-						this.repairLogic.pick(number)
-						this.clear()
-						this.background.generateLevelBackground()
-						this.enemies.spawn()
+						this.selectSelection(number)
 					}
 				))
 				super.add(new IconText(this.scene, x, y, text))
+				this.selectionsVisible  += 1;
 			}
 		})
 	}
@@ -179,9 +202,21 @@ export default class Speech extends GameObjects.Container {
 
 	generateOptionsReport(){
 		let options = [
-			"Pick ONE from the following options:"
+			"Use ARROW keys tp pick ONE from the following options:"
 		]
 
 		return options[Math.floor(Math.random() * options.length)]
+	}
+
+	update() {
+		if(this.selectionsVisible != 3  ) return;
+
+		if(this.scene.cursors.left.isDown) {
+			this.selectSelection(0);
+		} else if(this.scene.cursors.up.isDown ){
+			this.selectSelection(1);
+		} else if(this.scene.cursors.right.isDown ){
+			this.selectSelection(2);
+		} 
 	}
 }
