@@ -11,11 +11,7 @@ export default class Background extends GameObjects.Container {
 
 
 	clear(){
-
-		for(const image of this.images){
-			image.destroy()
-		}
-
+		this.removeAll(true)
 	}
 
 	randomInt(min, max){
@@ -34,7 +30,8 @@ export default class Background extends GameObjects.Container {
 			const y = this.randomInt(0, 900)
 
 			const star = this.scene.add.image(x, y, "star");
-			this.images.push(star)
+			star.setDepth(1)
+			this.add(star)
 
 		}
 
@@ -49,7 +46,8 @@ export default class Background extends GameObjects.Container {
 
 			let galaxy = this.scene.add.image(x, y, galaxyImage);
 			galaxy.angle = this.randomInt(0, 180)
-			this.images.push(galaxy)
+			galaxy.setDepth(1)
+			this.add(galaxy)
 		}
 
 	}

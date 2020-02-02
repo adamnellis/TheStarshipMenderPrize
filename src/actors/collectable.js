@@ -1,5 +1,7 @@
 
-export default class Collectable extends Phaser.Physics.Arcade.Sprite {
+import Collider from './collider'
+
+export default class Collectable extends Collider {
 	constructor(scene, x, y, image_name) {
 		super(scene, x, y, image_name);
 

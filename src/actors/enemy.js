@@ -94,6 +94,10 @@ export default class Enemy extends CircularCollider {
 			this.death_animation()
 
 		}
+		else if(this.dying==false){
+			this.injured_animation()
+		}
+
 
 	}
 
@@ -115,6 +119,24 @@ export default class Enemy extends CircularCollider {
 		this.scene.time.delayedCall(300,()=>{this.death_animation()})
 	}
 
+
+	injured_animation(){
+		this.tint = 0xffcc00
+
+		if(this.animation_count == this.animation_cycles){
+			this.tint = 0x666666
+		}
+		else{
+			this.animation_count +=1
+			this.scene.time.delayedCall(200, () => {this.injured_flash_animation()})
+		}
+
+	}
+
+	injured_flash_animation(){
+		this.clearTint()
+		this.scene.time.delayedCall(200,()=>{this.injured_animation()})
+	}
 
 	die(){
 

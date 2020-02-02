@@ -5,41 +5,14 @@ export default class RepairLogic {
 	}
 
 	generate() {
-		let performance = this.player.resources.resources + this.player.health.health
+		let performance = (this.player.resources.resources*10) + this.player.health.health
 		this.choices = [this.generateMobility(performance), this.generateMobility(performance), this.generateTradeoff(performance)]
 		return this.choices.map(o => o.text)
 	}
 
 	generateMobility(){
 		let options = []
-		if (performance >= 190){
-			options = [{
-				text: `
-				New FTL Drive
-
-				Great Speed
-				Great Turning
-				`,
-				options: {
-					velocity: 650,
-					angularVelocity: 500
-				}
-			}]
-		} else if (performance >= 140){
-			//TODO: need different things
-			options = [{
-				text: `
-				New FTL Drive
-
-				Great Speed
-				Great Turning
-				`,
-				options: {
-					velocity: 650,
-					angularVelocity: 500
-				}
-			}]
-		} else if (performance >= 90){
+		if (performance >= 95){
 			//TODO: need different things
 			options = [{
 				text: `
@@ -88,35 +61,7 @@ export default class RepairLogic {
 	generateTradeoff(performance){
 		let options = []
 
-		if (performance >= 190){
-			//TODO: need different things
-			options = [{
-				text: `
-				Run Side Thrust Hot
-
-				Slow Speed
-				Crazy Turning
-				`,
-				options: {
-					velocity: 200,
-					angularVelocity: 100000
-				}
-			}]
-		} else if (performance >= 140){
-			//TODO: need different things
-			options = [{
-				text: `
-				Run Side Thrust Hot
-
-				Slow Speed
-				Crazy Turning
-				`,
-				options: {
-					velocity: 200,
-					angularVelocity: 100000
-				}
-			}]
-		} else if (performance >= 90){
+		if (performance >= 95){
 			//TODO: need different things
 			options = [{
 				text: `
