@@ -78,7 +78,7 @@ export default class Game extends Scene {
         this.physics.add.collider(this.player, this.enemies.enemies, collideShips);
        
 
-        this.speech = new Speech(this, this.player)
+        this.speech = new Speech(this, this.player, this.enemies)
     }
 
     update(t, dt) {

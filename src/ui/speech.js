@@ -8,10 +8,11 @@ import IconText from './speechParts/iconText'
 import RepairLogic from './speechParts/repairLogic'
 
 export default class Speech extends GameObjects.Container {
-	constructor(scene, player) {
+	constructor(scene, player, enemies) {
 		super(scene)
 		this.isOpen = false
 		this.player = player
+		this.enemies = enemies
 		this.repairLogic = new RepairLogic(player)
 
 		this.typewriter = new Typewriter(
@@ -60,6 +61,7 @@ export default class Speech extends GameObjects.Container {
 					() => {
 						this.repairLogic.pick(number)
 						this.clear()
+						this.enemies.spawn()
 					}
 				))
 				super.add(new IconText(this.scene, x, y, text))
