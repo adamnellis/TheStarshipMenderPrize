@@ -8,7 +8,7 @@ import Collider from './collider'
 const BULLET_DAMAGE = 10;
 
 export default class Bullet extends Collider {
-	constructor(scene, x_pos, y_pos, x_vel, y_vel, image_name = "laserBlue01.png") {
+	constructor(scene, x_pos, y_pos, x_vel, y_vel, image_name = "laserBlue01.png", damage = BULLET_DAMAGE) {
 		super(scene, x_pos, y_pos, "spaceRedux", image_name);
 		this.scene.add.existing(this);
 
@@ -18,7 +18,7 @@ export default class Bullet extends Collider {
 		this.x_vel = x_vel;
 		this.y_vel = y_vel;
 		this.rotation = Math.atan2(this.y_vel, this.x_vel) + Math.PI / 2;
-		this.damage = BULLET_DAMAGE;
+		this.damage = damage;
 	}
 
 	add(bullet) {
