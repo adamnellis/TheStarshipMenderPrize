@@ -11,6 +11,7 @@ import Background from '../actors/background'
 import Speech from '../ui/speech'
 import Score from '../ui/score'
 import PlayerBullets from '../actors/playerBullets'
+import Collectibles from "../actors/collectibles";
 
 const PHYSICS_FPS = 15;
 const physics_dt = 1000 / PHYSICS_FPS;
@@ -72,7 +73,9 @@ export default class Game extends Scene {
         this.playerBullets = new PlayerBullets(this);
         this.player = new Player(this, this.playerBullets)
 
-        this.enemies = new Enemies(this, this.player, this.bullets)
+        this.collectibles = new Collectibles(this)
+
+        this.enemies = new Enemies(this, this.player, this.bullets, this.collectibles)
         this.enemies.spawn()
 
         const collideShips = (ship, enemy) => {

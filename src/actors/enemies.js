@@ -8,10 +8,11 @@ import EnemyMovePointToPoint from "./enemy_move_point_to_point";
 import EnemyMoveDownScreen from "./enemy_move_down_screen";
 
 export default class Enemies extends GameObjects.Container {
-	constructor(scene, player, bullets) {
+	constructor(scene, player, bullets, collectibles) {
 		super(scene);
 		this.player = player;
 		this.bullets = bullets;
+		this.collectibles = collectibles;
 		this.enemies = [];
 		this.isAttacking = false
 		this.level = 0

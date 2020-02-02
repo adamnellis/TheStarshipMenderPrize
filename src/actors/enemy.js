@@ -1,6 +1,7 @@
 import config from './../config'
 import Bullet from "./bullet";
 import CircularCollider from './circularCollider'
+import Collectable from "./collectable";
 
 export default class Enemy extends CircularCollider {
 	constructor(scene, player, bullets, x, y, image_name, rotation_angle, rotation_rate, rotation_damping) {
@@ -99,7 +100,9 @@ export default class Enemy extends CircularCollider {
 
 	die(){
 
-		//Todo: Deposit resource
+		//Deposit resource
+		const repair = new Collectable(this.scene, this.x, this.y, "repair")
+		this.scene.add.existing(repair)
 
 		//Kill this ship
 		this.destroy();
