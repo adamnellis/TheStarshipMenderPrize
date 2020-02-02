@@ -204,7 +204,7 @@ export default class RepairLogic {
 				text: `
 				Sunflower Protocol
 
-				Crazy Accuracy
+				No Accuracy
 				Great Fire Rate
 				`,
 				options: {
@@ -221,7 +221,7 @@ export default class RepairLogic {
 				Repurpose Guidance
 
 				Moderate Speed
-				Crazy Accuracy
+				No Accuracy
 				Crazy Turning
 				`,
 				options: {
@@ -239,7 +239,7 @@ export default class RepairLogic {
 				Release Anti-matter
 
 				Crazy Speed
-				Crazy Accuracy
+				No Accuracy
 				Crazy Turning
 				`,
 				options: {
