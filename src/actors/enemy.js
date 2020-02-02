@@ -77,7 +77,7 @@ export default class Enemy extends CircularCollider {
 			this.shooting_delay = 1000 / this.shoot_speed;
 
 			// Create a bullet moving in the direction that the enemy is pointing
-			const bullet = new Bullet(this.scene, this.x, this.y, -Math.sin(this.rotation), Math.cos(this.rotation));
+			const bullet = new Bullet(this.scene, this.x, this.y, -Math.sin(this.rotation), Math.cos(this.rotation), "laserRed01.png");
 			this.bullets.add(bullet);
 		}
 	}
