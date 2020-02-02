@@ -130,7 +130,6 @@ export default class player extends CircularCollider {
 
   repair(options) {
     for (let key in options) {
-      console.log(key + ": " + this[key] + " -> " + options[key])
       this[key] = options[key]
     }
 
