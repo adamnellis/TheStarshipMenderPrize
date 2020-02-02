@@ -12,25 +12,49 @@ import Bullet from './bullet'
     this.scene.add.existing(this);
     this.cursors = scene.input.keyboard.createCursorKeys();
     this.bullets = bullets;
+    this.delta_accumulator = 0;
     
+    //Ship modifiers
     this.angularVelocity = 100;
     this.velocity = 300;
     this.acceleration = 50;
     this.drag = 50; 
-    this.bulletDamage = 50;
 
-    this.setCollideWorldBounds(true);
+    this.recentDefecits = []
+
     this.setDrag(this.drag, this.drag)
 
+    //Gun modifiers
+    this.bulletDamage = 100;
+    this.bulletPicture = 'laserBlue01.png';
+    this.shootRate = 200;
+    this.bulletDirectionModifier = 1;  // radians * this. 1 is straight. 
+    this.bulletSpeed = 1; // 2 would give 2x speed; -1 would be shoot backwards
+    this.shootRandomDirectionMax = 1;
+
+
+    this.setCollideWorldBounds(true);
+    
   }
 
-  shoot() {     
+
+
+  shoot() {    
+
+    const randomModifier =  Math.random() * (this.shootRandomDirectionMax) + 1;
 
     // const x = this.x +  Math.sin(this.rotation) * this.height/2  ;
     // const y = this.y -  Math.cos(this.rotation) * this.height/2 ;   
 
+
+    const x_velocity = Math.sin(this.rotation *  this.bulletDirectionModifier ) * this.bulletSpeed;
+    const y_velocity = -Math.cos(this.rotation *  this.bulletDirectionModifier) * this.bulletSpeed;
+
+
+
+
     // Create a bullet moving in the direction that the ship is pointing
-		const bullet = new Bullet(this.scene, this.x, this.y, Math.sin(this.rotation), -Math.cos(this.rotation), "laserBlue01.png", this.bulletDamage);
+		const bullet = new Bullet(this.scene, this.x, this.y, x_velocity, y_velocity, "laserBlue01.png", this.bulletDamage);
     this.bullets.add(bullet);
 	}
     
@@ -51,41 +75,48 @@ import Bullet from './bullet'
 
   	update(time,delta) {
 
-    if (this.cursors.left.isDown)
-    {
-      this.setAngularVelocity(-this.angularVelocity);
+      this.delta_accumulator += delta;
 
-    }
-    else if (this.cursors.right.isDown)
-    {
-      this.setAngularVelocity(this.angularVelocity);
-    
-    }
-    else
-    {
-      this.setAngularVelocity(0);
-    }
+      if (this.cursors.left.isDown)
+      {
+        this.setAngularVelocity(-this.angularVelocity);
 
-    if (this.cursors.up.isDown)
-    {
-      this.move(true);
+      }
+      else if (this.cursors.right.isDown)
+      {
+        this.setAngularVelocity(this.angularVelocity);
+      
+      }
+      else
+      {
+        this.setAngularVelocity(0);
+      }
 
-    }
-    else if (this.cursors.down.isDown)
-    {
+      if (this.cursors.up.isDown)
+      {
+        this.move(true);
 
-      this.move(false);
-    }
-    else
-    {
-      this.setAccelerationX(0);
-      this.setAccelerationY(0);
+      }
+      else if (this.cursors.down.isDown)
+      {
 
-    }
+        this.move(false);
+      }
+      else
+      {
+        this.setAccelerationX(0);
+        this.setAccelerationY(0);
 
-    if(this.cursors.space.isDown) {
-      this.shoot();
-    }
+      }
+
+      if(this.cursors.space.isDown) {
+
+        if(this.delta_accumulator > this.shootRate) {
+          this.shoot();
+          this.delta_accumulator = 0;
+        }
+       
+      }
 
 
 	
@@ -113,11 +144,26 @@ import Bullet from './bullet'
     switch(Math.floor(Math.random() * 2)){
       case 1:
         this.velocity *= 0.8
+        this.recentDefecits.push("speed")
         return "- Speed"
       default:
         this.angularVelocity *= 0.8
+        this.recentDefecits.push("turning")
         return "- Turning"
     }
+  }
+
+  readAndClearRecentDefecits(){
+    let local = []
+    for (let item of this.recentDefecits){
+      if (local[item]){
+        local[item] += 1
+      } else{
+        local[item] = 1
+      }
+    }
+    this.recentDefecits = []
+    return local
   }
 
   getXPosition() {

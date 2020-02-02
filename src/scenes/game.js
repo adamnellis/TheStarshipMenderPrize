@@ -7,6 +7,7 @@ import {
 import Player from '../actors/player'
 import Bullets from "../actors/bullets"
 import Enemies from '../actors/enemies'
+import Background from '../actors/background'
 import Speech from '../ui/speech'
 import Score from '../ui/score'
 import PlayerBullets from '../actors/playerBullets'
@@ -44,43 +45,11 @@ export default class Game extends Scene {
         })
     }
 
-    randomInt(min, max){
-         return Math.floor(Math.random() * max) + min
-    }
-
-    generateLevelBackground(){
-
-        const numStars = this.randomInt(10, 100)
-
-        for(let i=0; i<numStars; i++){
-
-            const x = this.randomInt(0, 1500)
-            const y = this.randomInt(0, 900)
-
-            this.add.image(x, y, "star");
-        }
-
-        const numGalaxies = this.randomInt(2, 5)
-        const galaxyImages = ["galaxy", "galaxy2", "galaxy3", "galaxy4", "galaxy5"]
-
-        for(let i=0; i<numGalaxies; i++){
-
-            const x = this.randomInt(0, 1500)
-            const y = this.randomInt(0, 900)
-            const galaxyImage = galaxyImages[this.randomInt(0, 5)]
-
-            let galaxy = this.add.image(x, y, galaxyImage);
-            galaxy.angle = this.randomInt(0, 180)
-        }
-
-
-
-    }
-
     create(data) {
         // data is passed from button
 
-        this.generateLevelBackground()
+        this.background = new Background(this)
+        this.background.generateLevelBackground()
 
         this.physics.world.setBoundsCollision(true, true, true, true);
 
@@ -120,7 +89,7 @@ export default class Game extends Scene {
         this.physics.add.collider(this.player, this.bullets.list, shipShot);
         this.physics.add.collider(this.enemies.list, this.playerBullets.list, shipShot);
 
-        this.speech = new Speech(this, this.player, this.enemies)
+        this.speech = new Speech(this, this.player, this.enemies, this.background)
 
         this.keys = this.input.keyboard.addKeys('k');
     }
@@ -136,14 +105,7 @@ export default class Game extends Scene {
 
             if (this.enemies.isAttacking && (this.enemies.list.length === 0)){
                 this.enemies.wait()
-                this.speech.open(
-                    `Captain, our hull is seriously damaged and we have little materials.
-    
-                    I managed to repair the flux capactior drive with our guns secondary heat sink pump. But what do we do with the hull?
-    
-    
-                    Pick ONE from the following options:`
-                )
+                this.speech.open()
 
                 //FIXME: when selected choice unwait enemies.
             }
