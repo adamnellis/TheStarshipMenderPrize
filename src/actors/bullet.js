@@ -12,6 +12,9 @@ export default class Bullet extends Collider {
 		super(scene, x_pos, y_pos, "spaceRedux", image_name);
 		this.scene.add.existing(this);
 
+		this.setOrigin(0.5, 0.1)
+		this.body.setCircle(5);
+
 		this.x_vel = x_vel;
 		this.y_vel = y_vel;
 		this.rotation = Math.atan2(this.y_vel, this.x_vel) + Math.PI / 2;

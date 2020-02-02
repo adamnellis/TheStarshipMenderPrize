@@ -99,7 +99,6 @@ export default class Game extends Scene {
         this.dt_accumulator = 0;
 
         this.bullets = new Bullets(this)
-
         this.player = new Player(this)
 
         this.enemies = new Enemies(this, this.player, this.bullets)
@@ -110,10 +109,18 @@ export default class Game extends Scene {
             enemy.damage(100);
         }
 
-        this.physics.add.collider(this.player, this.enemies.enemies, collideShips);
-       
+        
+		const shipShot = (ship, bullet) => {
+			ship.damage(bullet.damage);
+			bullet.destroy();
+		}
 
-        this.speech = new Speech(this, this.player)
+        this.physics.add.collider(this.player, this.enemies.list, collideShips);
+        this.physics.add.collider(this.player,  this.bullets.list, shipShot);
+
+        this.speech = new Speech(this, this.player, this.enemies)
+
+        this.keys = this.input.keyboard.addKeys('k');
     }
 
     update(t, dt) {
@@ -140,6 +147,14 @@ export default class Game extends Scene {
 
             // FIXME: remove this when score captured elsewhere
             this.score.increase(1)
+
+            // Cheats for testing
+            if (this.keys.k.isDown) {
+                // K key kills all enemies
+                for(const enemy of this.enemies.list) {
+                    enemy.damage(10000);
+                }
+            }
 		}
 
 		this.enemies.update(t, dt);

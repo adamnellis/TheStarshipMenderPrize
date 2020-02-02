@@ -13,21 +13,28 @@ export default class Enemies extends GameObjects.Container {
 		this.bullets = bullets;
 		this.enemies = [];
 		this.isAttacking = false
-		this.isWaiting = false
+		this.level = 0
 
 		this.scene.add.existing(this);
 	}
 
 	spawn() {
+		this.level += 1
+
 		this.isAttacking = true
 		// this.enemies.push(new EnemyNormalRotatePlayer(this.scene, this.player, this.bullets, 750, 500, 'enemyBlack1.png'))
 		// this.enemies.push(new EnemySlowSpiral(this.scene, this.player, this.bullets, 600));
 
-		this.enemies.push(new EnemyFlyInToCentre(this.scene, this.player, this.bullets));
-
-		for(const enemy of this.enemies) {
-			super.add(enemy);
+		if (this.level === 1) {
+			super.add(new EnemyFlyInToCentre(this.scene, this.player, this.bullets));
 		}
+		else {
+			super.add(new EnemyFlyInToCentre(this.scene, this.player, this.bullets));
+		}
+
+		// for(const enemy of this.enemies) {
+		// 	super.add(enemy);
+		// }
 		
 	}
 
@@ -45,7 +52,6 @@ export default class Enemies extends GameObjects.Container {
 
 	wait(){
 		this.isAttacking = false
-		this.isWaiting = true
 	}
 }
 
@@ -74,7 +80,7 @@ class EnemyFlyInToCentre extends EnemyMovePointToPoint {
 
 	constructor(scene, player, bullets) {
 
-		// TODO: Randomly choose start x & y
+		// Randomly choose start x & y
 		const angle = Math.random() * 2 * Math.PI;
 		const radius = 1.5 * Math.max(config.width, config.height) / 2;
 		const start_x = radius * Math.cos(angle) + config.width / 2;

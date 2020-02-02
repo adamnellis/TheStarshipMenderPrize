@@ -1,6 +1,8 @@
 import CircularCollider from './circularCollider'
 import Health from '../ui/health.js'
 import Resources from '../ui/resources.js'
+import Status from './player_status'
+import Bullet from './bullet'
 
  export default class player extends CircularCollider {
  	constructor(scene) {
@@ -20,7 +22,13 @@ import Resources from '../ui/resources.js'
 
   }
 
-    _move(forward) {
+  shoot() {
+		// Create a bullet moving in the direction that the ship is pointing
+		const bullet = new Bullet(this.scene, this.x, this.y, -Math.sin(this.rotation), Math.cos(this.rotation));
+		this.bullets.add(bullet);
+	}
+
+    move(forward) {
     const direction = forward ? 1 : -0.5;
 
     // * UP 0, DOWN -180, RIGHT 90, LEFT -90
@@ -54,13 +62,13 @@ import Resources from '../ui/resources.js'
 
     if (this.cursors.up.isDown)
     {
-      this._move(true);
+      this.move(true);
 
     }
     else if (this.cursors.down.isDown)
     {
 
-      this._move(false);
+      this.move(false);
     }
     else
     {
@@ -68,6 +76,13 @@ import Resources from '../ui/resources.js'
       this.setAccelerationY(0);
 
     }
+
+    if(this.cursors.space.isDown) {
+
+      console.log('wh')
+      this.shoot();
+    }
+
 
 	
 	}
@@ -78,7 +93,9 @@ import Resources from '../ui/resources.js'
 
     damage(damage) {
       this.health.reduce(damage);
-     
+
+      let defecitText = this.generateDeficit()
+      this.scene.add.existing(new Status(this.scene, this.x, this.y, defecitText))
     }
   
   repair(options){
@@ -88,6 +105,16 @@ import Resources from '../ui/resources.js'
     }
   }
 
+  generateDeficit(){
+    switch(Math.floor(Math.random() * 2)){
+      case 1:
+        this.velocity *= 0.8
+        return "- Speed"
+      default:
+        this.angularVelocity *= 0.8
+        return "- Turning"
+    }
+  }
 
   getXPosition() {
 		// TODO: Make this calculate the position from all the objects that make up the player
