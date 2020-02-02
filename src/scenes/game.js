@@ -34,8 +34,6 @@ export default class Game extends Scene {
         }
 
         super(config);
-
-       
     }
 
     preload() {}
@@ -46,8 +44,43 @@ export default class Game extends Scene {
         })
     }
 
+    randomInt(min, max){
+         return Math.floor(Math.random() * max) + min
+    }
+
+    generateLevelBackground(){
+
+        const numStars = this.randomInt(10, 100)
+
+        for(let i=0; i<numStars; i++){
+
+            const x = this.randomInt(0, 1500)
+            const y = this.randomInt(0, 900)
+
+            this.add.image(x, y, "star");
+        }
+
+        const numGalaxies = this.randomInt(2, 5)
+        const galaxyImages = ["galaxy", "galaxy2", "galaxy3", "galaxy4", "galaxy5"]
+
+        for(let i=0; i<numGalaxies; i++){
+
+            const x = this.randomInt(0, 1500)
+            const y = this.randomInt(0, 900)
+            const galaxyImage = galaxyImages[this.randomInt(0, 5)]
+
+            let galaxy = this.add.image(x, y, galaxyImage);
+            galaxy.angle = this.randomInt(0, 180)
+        }
+
+
+
+    }
+
     create(data) {
         // data is passed from button
+
+        this.generateLevelBackground()
 
         this.physics.world.setBoundsCollision(true, true, true, true);
 
@@ -88,8 +121,8 @@ export default class Game extends Scene {
         this.physics.add.collider(this.enemies.list, this.playerBullets.list, shipShot);
 
         this.speech = new Speech(this, this.player, this.enemies)
-    
-    
+
+        this.keys = this.input.keyboard.addKeys('k');
     }
 
     update(t, dt) {
@@ -117,6 +150,14 @@ export default class Game extends Scene {
 
             // FIXME: remove this when score captured elsewhere
             this.score.increase(1)
+
+            // Cheats for testing
+            if (this.keys.k.isDown) {
+                // K key kills all enemies
+                for(const enemy of this.enemies.list) {
+                    enemy.damage(10000);
+                }
+            }
 		}
 
 		this.enemies.update(t, dt);
